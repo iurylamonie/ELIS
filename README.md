@@ -1,3 +1,5 @@
+[Link sobre C e NCURSEs](http://www.students.ic.unicamp.br/~ra069297/links.html)
+
 # Autores
 
 Iury Lamonie - iury.lamonie@hotmail.com
