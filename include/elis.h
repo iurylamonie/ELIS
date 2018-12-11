@@ -3,6 +3,7 @@
 
 #include <string>
 #include <fstream>
+#include <iostream>
 
 #include "hashtbl.h" //< size_type
 
@@ -157,7 +158,14 @@ public:
 	 *
 	 * @return	True se o arquivo estiver vazio, false caso contrário.
 	 */
-	size_type empty() { return this->m_data_file.size(); }
+	size_type empty() { return this->m_data_file.empty(); }
+
+	/**
+	 * @brief	Retorna a posição da linha atual.
+	 *
+	 * @return	A posição da linha atual.
+	 */
+	size_type linha_atual() { return this->m_curr_lin; }
 private:
 	/**
 	 * m_curr_lin	Armazena a linha atual.

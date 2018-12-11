@@ -18,7 +18,7 @@ void elis::redistribute( const size_type _n )
 	if( !this->empty() )
 	{
 		// Percorre da última linha até a linha n.
-		for (int i = this->size(); i <= _n ; --i)
+		for (int i = this->size(); i >= _n ; --i)
 		{
 			// "Passa" a informação da linha atual para a linha seguinte.
 			this->m_data_file.insert( i + 1, this->m_data_file[i] );
@@ -31,17 +31,45 @@ void elis::redistribute( const size_type _n )
 void elis::write( const std::string & _name )
 {
 	// Verifica se o nome do arquivo foi informado.
-	if( _name != std::string() )
+	if( _name != std::string() ) //< Grava no arquivo informado.
 	{
-		std::fstream file( _name, std::fstream::out | std::fstream::in | std::fstream::trunc );
+		std::ofstream file( _name );
 		if( file.is_open() )
 		{
+			std::string txt;
 			for ( size_type i = 1; i <= this->size(); ++i )
 			{
-				
+				this->m_data_file.retrieve( i, txt );
+				file << txt;
 			}
-		} else std::cerr << "file isn't open!" << std::endl;
-		
+		} else std::cout << "file isn't open!" << std::endl;
+	}
+	else //< Grava no arquivo atual.
+	{
+		if( this->m_file_stream.is_open() )
+		{
+			std::string txt;
+			for ( size_type i = 1; i <= this->size(); ++i )
+			{
+				this->m_data_file.retrieve( i, txt );
+				this->m_file_stream << txt;
+			}
+		}
+		else std::cout << "current file isn't open!" << std::endl;
+	}
+}
+
+void elis::modify( const size_type _n )
+{
+	// Verifica se a linha foi informado ou se o linha informada
+	// ultrapassa a quantidade de linhas.
+	if( ( _n != 0 ) && ( _n <= this->size() ) ) 
+	{
+		this->m_curr_lin = _n;
+	}
+	else 
+	{
+		this->m_curr_lin = this->size();
 	}
 }
 
@@ -50,7 +78,7 @@ void elis::write( const std::string & _name )
 void elis::insert( const size_type _n, const std::string & _txt )
 {
 	// Verifica se foi informado a linha n ou se a linha n existe.
-	if( ( _n != 0 ) && ( _n <= this->m_data_file.size() ) )
+	if( ( _n != 0 ) && ( _n <= this->size() ) )
 	{
 		this->redistribute( _n );
 		this->m_data_file.insert( _n, _txt );
@@ -92,11 +120,12 @@ void elis::deleteL( const size_type _n, const size_type _m)
 			// Armazena a quantidade de linhas antes de deletar as linhas
 			// de _n até _m.
 			size_type old_size = this->size();
-			
 			// Deleta as linhas de _n até _m.
 			for (int i = _n; i <= _m; ++i)
 			{
-				this->m_data_file.erase( _n );
+				this->m_data_file.erase( i );
+				// Verifica se está deletando a linha atual.
+				if( this->m_curr_lin == i ) this->modify( _n );
 			}
 
 			// Verifica se a última linha deletada, _m, é a última linha.
@@ -109,6 +138,7 @@ void elis::deleteL( const size_type _n, const size_type _m)
 				{
 					// "Cópia" a linha seguintes à _m em _n;
 					this->m_data_file.insert( _n + j, this->m_data_file[ i ] );
+					if( this->m_curr_lin == i ) this->modify( _n + j );
 					// Deleta a linha original que foi "cópiada".
 					this->m_data_file.erase(i);
 					++j;
@@ -121,7 +151,11 @@ void elis::deleteL( const size_type _n, const size_type _m)
 			size_type old_size = this->size();
 
 			this->m_data_file.erase( _n ); //< Se a linha m não for informada ou m ultrapassa a quantidade de linhas.
-
+			//Verifica _n é a ultima linha e se ela é a linha atual e se não é a unica linha.
+			if( ( _n == old_size ) && ( this->m_curr_lin == _n ) && ( this->size() > 1 ) )
+			{
+				--this->m_curr_lin;
+			}
 			// Verifica se a última linha deletada, _n, é a última linha.
 			// Caso não seja, repassa todos as linhas seguintes a _n para
 			// a posição _n.
@@ -160,6 +194,11 @@ void elis::deleteL( const size_type _n, const size_type _m)
 				this->m_data_file.erase(i);
 				++j;
 			}
+		}
+		//Verifica _n é a ultima linha e se ela é a linha atual e se não é a unica linha. 
+		else if( ( this->m_curr_lin == old_size ) && ( this->size() > 1 ) )
+		{
+			--this->m_curr_lin;
 		}
 	}
 }
