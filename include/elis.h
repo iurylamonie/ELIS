@@ -2,6 +2,7 @@
 #define _ELIS_H_
 
 #include <string>
+#include <fstream>
 
 #include "hashtbl.h" //< size_type
 
@@ -67,7 +68,7 @@ public:
 	 * 
 	 * @param[in]	_name O nome do arquivo.
 	 */
-	void write( const std::string & _name );
+	void write( const std::string & _name = std::string() );
 
 	/**
 	 * @brief	Lê para a memória todas as linhas de texto do arquivo ascii name.
@@ -75,7 +76,7 @@ public:
 	 * 
 	 * @param[in]	_name	O nome do arquivo.
 	 */
-	void open( const std::string & _name );
+	void open( const std::string & _name = std::string() );
 
 	/**
 	 * @brief	Torna n linha atual. Se n não é fornecido então a última
@@ -140,7 +141,23 @@ public:
 	 * @param[in]	_n	A linha n.
 	 * @param[in]	_m	A linha m.
 	 */
-	void paste( const size_type _n );
+	void paste( const size_type _n = 0 );
+
+	//== OPERADORES DE CAPACIDADE
+
+	/**
+	 * @brief	Retorna a quantidade de linhas atualmente armazenadas.
+	 *
+	 * @return	A quantidade de linhas.
+	 */
+	size_type size() { return this->m_data_file.size(); }
+
+	/**
+	 * @brief	Verifica se o arquivo atual está vázio.
+	 *
+	 * @return	True se o arquivo estiver vazio, false caso contrário.
+	 */
+	size_type empty() { return this->m_data_file.size(); }
 private:
 	/**
 	 * m_curr_lin	Armazena a linha atual.
@@ -149,6 +166,7 @@ private:
 	 * m_save	True se o arquivo estiver salvo, false caso contrário.
 	 * m_name_file	Armazena o nome do arquivo que está atualmente aberto.
 	 * m_data_file	Armazena cada linha do arquivo ascii.
+	 * m_file_stream	Armazena a associação com o objeto stream.
 	 */
 
 	//== ATRIBUTOS
@@ -158,6 +176,7 @@ private:
 	bool m_save;
 	std::string m_name_file;
 	ac::HashTbl< int, std::string > m_data_file;
+	std::fstream m_file_stream;
 
 	//== FUNÇÕES AUXILIARES
 
