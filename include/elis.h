@@ -5,12 +5,44 @@
 
 #include "hashtbl.h" //< size_type
 
+/**
+ * @brief      Tipos de comando.
+ */
+enum command_t
+{
+	c_insert,
+	c_append,
+	c_edit,
+	c_delete,
+	c_paste
+};
+
+/**
+ * @brief      Organiza os dados de comandos útilizados, armazenando o comando
+ *             executado, salvando posiveis linhas afetadas e a quantida de
+ *             linhas afetadas.
+ */
+struct Exe_commands
+{
+	/**
+	 * ms_command	Comando útilizado.
+	 * ms_affec_rows	Linhas afetadas.
+	 * ms_size	Quantidade de linhas afetadas.
+	 */
+	command_t ms_command;
+	ac::HashEntry< int, std::string > * ms_affec_rows;
+	size_type ms_size;
+};
+
+/**
+ * @brief      Class for elis.
+ */
 class elis
 {
 public:
 	//== CONSTRUTORES E DESTRUTORES
 	elis();
-	~elis();
+	//~elis();
 
 	//== OPERAÇÕES DA JANELA
 
@@ -35,7 +67,7 @@ public:
 	 * 
 	 * @param[in]	_name O nome do arquivo.
 	 */
-	void write( const & std::string _name );
+	void write( const std::string & _name );
 
 	/**
 	 * @brief	Lê para a memória todas as linhas de texto do arquivo ascii name.
@@ -43,7 +75,7 @@ public:
 	 * 
 	 * @param[in]	_name	O nome do arquivo.
 	 */
-	void open( const & std::string _name );
+	void open( const std::string & _name );
 
 	/**
 	 * @brief	Torna n linha atual. Se n não é fornecido então a última
@@ -72,7 +104,7 @@ public:
 	 * @param[in]	_n	A linha n.
 	 * @param[in]	_txt	O texto.
 	 */
-	void insert( const size_type _n = 0, const & std::string _txt );
+	void insert( const size_type _n = 0, const std::string & _txt = std::string() );
 
 	/**
 	 * @brief	Entra no modo edição, permitindo a inserção de texto depois da linha n;
@@ -81,7 +113,7 @@ public:
 	 * @param[in]	_n	A linha n.
 	 * @param[in]	_txt	O texto.
 	 */
-	void append( const size_type _n = 0, const & std::string _txt );
+	void append( const size_type _n = 0, const std::string & _txt = std::string() );
 
 	/**
 	 * @brief	Remove as linhas n até m. Se apenas n é fornecido, remove-se a linha n.
@@ -115,13 +147,27 @@ private:
 	 * m_copy_buffer	Armazena as linhas que foram copiadas.
 	 * m_size_copy	Armazena a quantidade de linhas que foram copiadas.
 	 * m_save	True se o arquivo estiver salvo, false caso contrário.
+	 * m_name_file	Armazena o nome do arquivo que está atualmente aberto.
+	 * m_data_file	Armazena cada linha do arquivo ascii.
 	 */
 
 	//== ATRIBUTOS
 	size_type m_curr_lin;
-	HashEntry< int, std::string > * m_copy_buffer;
+	/*ac::HashEntry< int, std::string >*/ std::string * m_copy_buffer;
 	size_type m_size_copy;
 	bool m_save;
+	std::string m_name_file;
+	ac::HashTbl< int, std::string > m_data_file;
+
+	//== FUNÇÕES AUXILIARES
+
+	/**
+	 * @brief      Passa a linha n para a proxima linha, ou seja,n + 1. 
+	 * Ocorre a mesma situação com as linhas sucessores à n até a última linha.
+	 *
+	 * @param[in]  _n    A linha n.
+	 */
+	void redistribute( const size_type _n );
 };
 
 #endif

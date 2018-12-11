@@ -3,6 +3,7 @@
 #include <iterator>
 
 #include "hashtbl.h"
+#include "elis.h"
 
 int main()
 {

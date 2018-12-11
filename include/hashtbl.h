@@ -8,15 +8,6 @@
 //#include "list.h"
 using size_type = unsigned int;
 
-/**
- * @brief      Determina  se é um determinado valor é primo.
- *
- * @param[in]  value  O valor.
- *
- * @return     True se o valor for primo, False caso contrario.
- */
-bool isPrimo( const size_type & value );
-
 namespace ac
 {
     template < typename KeyType, //< Tipo da chave.
@@ -392,6 +383,24 @@ namespace ac
     private:
 
         /**
+         * @brief      Determina  se é um determinado valor é primo.
+         *
+         * @param[in]  value  O valor.
+         *
+         * @return     True se o valor for primo, False caso contrario.
+         */
+        bool isPrimo( const size_type & value )
+        {
+            for ( size_type i = 2; i <= value/2 ; ++i )
+            {
+                // Se for divisil, logo não é primo.
+                if( value % i == 0 ) return false;
+            }
+
+            return true;
+        }
+
+        /**
          * @brief      Cria uma nova tabela cujo o tamanho será igual ao menor
          * número primo maior ou igua que o dobro do tamanho da tabela antes 
          * de chamar essa método.
@@ -441,14 +450,4 @@ namespace ac
     };
 };
 
-bool isPrimo( const size_type & value )
-{
-    for ( size_type i = 2; i <= value/2 ; ++i )
-    {
-        // Se for divisil, logo não é primo.
-        if( value % i == 0 ) return false;
-    }
-
-    return true;
-}
 #endif
