@@ -77,7 +77,7 @@ public:
 	 * 
 	 * @param[in]	_name	O nome do arquivo.
 	 */
-	void open( const std::string & _name = std::string() );
+	void open( const std::string & _name );
 
 	/**
 	 * @brief	Torna n linha atual. Se n não é fornecido então a última
@@ -166,6 +166,14 @@ public:
 	 * @return	A posição da linha atual.
 	 */
 	size_type linha_atual() { return this->m_curr_lin; }
+
+	/**
+	 * @brief      Imprime as linhas armazenadas na memoria (apenas para testes).
+	 */
+	void print_linhas()
+	{
+		std::cout << this->m_data_file << std::endl;
+	}
 private:
 	/**
 	 * m_curr_lin	Armazena a linha atual.
@@ -179,12 +187,12 @@ private:
 
 	//== ATRIBUTOS
 	size_type m_curr_lin;
-	/*ac::HashEntry< int, std::string >*/ std::string * m_copy_buffer;
+	std::string * m_copy_buffer;
 	size_type m_size_copy;
 	bool m_save;
 	std::string m_name_file;
 	ac::HashTbl< int, std::string > m_data_file;
-	std::fstream m_file_stream;
+	//std::fstream m_file_stream;
 
 	//== FUNÇÕES AUXILIARES
 

@@ -32,9 +32,9 @@ int main()
 	std::cout << std::endl;
 
 	std::cout << "---> INSERINDO ANTES DE DEPOIS DA PRIMEIRA LINHA..." << std::endl;
-	editor_texto.insert(1, "Linha Anterior.\n");
+	editor_texto.insert(1, "Linha Anterior.");
 	std::cout << "Quantidade de linhas: " << editor_texto.size() << std::endl;
-	editor_texto.append(2, "Linha Sucessora.\n");
+	editor_texto.append(2, "Linha Sucessora.");
 	std::cout << "Quantidade de linhas: " << editor_texto.size() << std::endl;
 	std::cout << std::endl;
 
@@ -42,7 +42,7 @@ int main()
 	// Joga a linha atual para ultima linha;
 	editor_texto.modify(0);
 	std::cout << "Linha atual: " << editor_texto.linha_atual() << std::endl;
-	editor_texto.append(0, "Inserindo depois da ultima linha\n");
+	editor_texto.append(0, "Inserindo depois da ultima linha");
 	std::cout << std::endl;
 	
 
@@ -50,7 +50,7 @@ int main()
 	editor_texto.modify(0);
 	for (int i = 0; i < 10; ++i)
 	{
-		editor_texto.append(0, std::to_string(i) + "\n");
+		editor_texto.append(0, std::to_string(i));
 		editor_texto.modify(0);
 	}
 	std::cout << "Quantidade de linhas: " << editor_texto.size() << std::endl;
@@ -70,10 +70,57 @@ int main()
 	std::cout << "Linha atual: " << editor_texto.linha_atual() << std::endl;
 	std::cout << std::endl;
 	
+	std::cout << "---> ABRINDO O ARQUIVO VAZIO EXISTENTE OPENFILE COM A FUNÇÃO OPEN..." << std::endl;
+	editor_texto.open("doc/openfile.txt");
+	std::cout << "Quantidade de linhas: " << editor_texto.size() << std::endl;
+	std::cout << "Linha atual: " << editor_texto.linha_atual() << std::endl;
+	std::cout << "--> INSERINDO LINNHAS NO ARQUIVO VAZIO" << std::endl;
+	editor_texto.insert(1, "Primeira linha");
+	editor_texto.append(1, "Segunda linha");
+	editor_texto.append(2, "Terceira linha");
+	std::cout << "Quantidade de linhas: " << editor_texto.size() << std::endl;
+	std::cout << "Linha atual: " << editor_texto.linha_atual() << std::endl;
+	std::cout << "--> ESCREVENDO NO ARQUIVO VAZIO COM WRITE..." << std::endl;
+	editor_texto.write();
+	editor_texto.write("doc/secondwri.txt");
+	std::cout << std::endl;
+	
+	std::cout << "---> ABRINDO O ARQUIVO EXISTENTE SELAN COM A FUNÇÃO OPEN..." << std::endl;
+	editor_texto.open("doc/selan.txt");
+	editor_texto.write("doc/iury.txt");
+	std::cout << "Quantidade de linhas: " << editor_texto.size() << std::endl;
+	std::cout << "Linha atual: " << editor_texto.linha_atual() << std::endl;
+	editor_texto.modify(); //< Linha atual agora é a ultima.
+	editor_texto.append(0,"Obs.:Começando o trabalho do zero!");
+	editor_texto.insert(1,"Quem mandou essa carta foi eu, iury o lindo!");
+	editor_texto.write();
+	editor_texto.write("doc/iury2.txt");
+	std::cout << std::endl;
+	/* TEST COPY E PASTE
+	std::cout << "---> COPIANDO A PRIMEIRA LINHA PARA O FINAL..." << std::endl;
+	//Colocando a posição atual para o fim
+	editor_texto.modify();
+	editor_texto.copy(1,6);
+	editor_texto.paste();
+	editor_texto.paste();
+	editor_texto.paste();
+	editor_texto.copy();
+	editor_texto.paste(1);
+	editor_texto.paste(1);
+	editor_texto.paste(1);
+	editor_texto.paste(1);
+	std::cout << std::endl;
+	*/
+
+	/*
 	std::cout << "---> GERANDO ARQUIVO COM FUNÇÃO WRITE..." << std::endl;
-	editor_texto.write("fileline.txt");
+	editor_texto.write("doc/writefile.txt");
 	std::cout << "<--- ARQUIVO GERADO." << std::endl;
 	std::cout << "Quantidade de linhas: " << editor_texto.size() << std::endl;
+	std::cout << "Linha atual: " << editor_texto.linha_atual() << std::endl;
 	std::cout << std::endl;
+	*/
+
+	//editor_texto.print_linhas();
 	return 0;
 }

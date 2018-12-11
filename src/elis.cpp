@@ -36,29 +36,71 @@ void elis::write( const std::string & _name )
 		std::ofstream file( _name );
 		if( file.is_open() )
 		{
-			std::string txt;
+			std::string line;
+
+			// Percorre toda a memoria do hash com as linhas.
 			for ( size_type i = 1; i <= this->size(); ++i )
 			{
-				this->m_data_file.retrieve( i, txt );
-				file << txt;
+				this->m_data_file.retrieve( i, line );
+				// Verifica se a linha que vai ser inserida é a ultima.
+				if( i != this->size() ) file << line + "\n";
+				else file << line;
 			}
+			file.close();
 		} else std::cout << "file isn't open!" << std::endl;
 	}
 	else //< Grava no arquivo atual.
 	{
-		if( this->m_file_stream.is_open() )
+		std::fstream file_stream( this->m_name_file, std::fstream::out | std::fstream::in | std::fstream::trunc );
+		// Cria um novo arquivo vazio.
+		if( file_stream.is_open() )
 		{
-			std::string txt;
+			std::string line;
+			// Percorre toda a memoria do hash com as linhas.
 			for ( size_type i = 1; i <= this->size(); ++i )
 			{
-				this->m_data_file.retrieve( i, txt );
-				this->m_file_stream << txt;
+				this->m_data_file.retrieve( i, line );
+				// Verifica se a linha que vai ser inserida é a ultima.
+				if( i != this->size() ) file_stream << line + "\n";
+				else file_stream << line;
 			}
 		}
-		else std::cout << "current file isn't open!" << std::endl;
+		else std::cout << "Current file isn't open!" << std::endl;
 	}
 }
 
+void elis::open( const std::string & _name)
+{
+	this->m_name_file =  _name;
+	std::fstream file_stream( this->m_name_file, std::fstream::out | std::fstream::in );
+	// Verifica se o arquivo foi aberto.
+	if( file_stream.is_open() )
+	{
+		// Limpa a memória.
+		this->m_data_file.clear();
+		// Reseta a posição atual( não tem posição atual).
+		this->modify();
+
+		size_type i = 1; //< Identificador da linha.
+		std::string line; //< Texto da linha.
+		// Percorre todo arquivo.
+		while( std::getline( file_stream, line) )
+		{
+			// Insere a linha na memoria.
+			this->m_data_file.insert( i, line);
+			++i;
+		}
+	}
+	else
+	{
+		// Cria um novo arquivo vazio.
+		file_stream.open( this->m_name_file, std::fstream::out | std::fstream::in | std::fstream::trunc );
+		// Limpa a memória.
+		this->m_data_file.clear();
+		// Reseta a posição atual( não tem posição atual).
+		this->modify();
+	}
+}
 void elis::modify( const size_type _n )
 {
 	// Verifica se a linha foi informado ou se o linha informada
@@ -195,7 +237,7 @@ void elis::deleteL( const size_type _n, const size_type _m)
 				++j;
 			}
 		}
-		//Verifica _n é a ultima linha e se ela é a linha atual e se não é a unica linha. 
+		//Verifica se a linha atual estava na ultima posição e se o arquivo tem mais de uma linha.
 		else if( ( this->m_curr_lin == old_size ) && ( this->size() > 1 ) )
 		{
 			--this->m_curr_lin;
@@ -212,7 +254,7 @@ void elis::copy( const size_type _n, const size_type _m )
 		//	e se _n é diferente de _m.
 		if( ( _m != 0 ) && ( _m <= this->m_data_file.size() ) && ( _n != _m ) )
 		{
-			this->m_size_copy = _m - _n;
+			this->m_size_copy = _m - _n + 1;
 			size_type j = 0;
 			this->m_copy_buffer = new std::string[this->m_size_copy];
 			for (int i = _n; i <= _m; ++i)
@@ -265,6 +307,5 @@ void elis::paste( const size_type _n )
 			// Armazena o texto armazenado no copy buffer para os dados do arquivo.
 			this->m_data_file.insert( this->m_curr_lin + i, this->m_copy_buffer[ i - 1 ] );
 		}
-	}
-	
+	}	
 }
