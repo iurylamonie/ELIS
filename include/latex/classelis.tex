@@ -1,0 +1,245 @@
+\hypertarget{classelis}{}\section{elis Class Reference}
+\label{classelis}\index{elis@{elis}}
+
+
+Class for elis.  
+
+
+
+
+{\ttfamily \#include $<$elis.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classelis_ab0982ac8d4cf72566aab79a002559831}\label{classelis_ab0982ac8d4cf72566aab79a002559831}} 
+void \hyperlink{classelis_ab0982ac8d4cf72566aab79a002559831}{help} ()
+\begin{DoxyCompactList}\small\item\em Exibe um texto de ajuda, explicando de forma resumida quais são os comandos do programa. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classelis_a0a743df9141cb61978d1739b3654409b}\label{classelis_a0a743df9141cb61978d1739b3654409b}} 
+void \hyperlink{classelis_a0a743df9141cb61978d1739b3654409b}{quit} ()
+\begin{DoxyCompactList}\small\item\em Encerra o programa. Se o texto atual não tiver sido salvo, o programa deve exibir uma mensagem indicando o fato e confirmar a operação. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_a92ba8d201559a28f3592ab340311e108}{write} (const std\+::string \&\+\_\+name=std\+::string())
+\begin{DoxyCompactList}\small\item\em Salva todas as linhas do texto em um arquivo ascii name. O Comando sem o fornecimento de um nome simplesmente grava o texto no arquivo atual. Se o nome do arquivo atual ainda não foi fornecido o programa deve solicitar um nome ao usuário. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_a23ea13aa06bd599d37b2b8f7fd8a5bf9}{open} (const std\+::string \&\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Lê para a memória todas as linhas de texto do arquivo ascii name. Se o arquivo indicado não existir um novo arquivo vazio name deve ser criado. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_a863421e1b739bbaa727da3ec66333248}{modify} (const size\+\_\+type \+\_\+n=0)
+\begin{DoxyCompactList}\small\item\em Torna n linha atual. Se n não é fornecido então a última linha do texto passa a ser a atual. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classelis_a6a7a0e7b84b7021365deafc902765254}\label{classelis_a6a7a0e7b84b7021365deafc902765254}} 
+void \hyperlink{classelis_a6a7a0e7b84b7021365deafc902765254}{undo} ()
+\begin{DoxyCompactList}\small\item\em Desfaz os últimos comandos realizados desde a última gravação do arquivo. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_acba75acf4af664df02db7dca65393f19}{edit} (const size\+\_\+type \+\_\+n)
+\begin{DoxyCompactList}\small\item\em Edita linha n, posicionando o cursos no final da linha. A edição será básica, suportando apenas o uso do $<$backspace$>$ para apagar os caracteres da linha. Se n não é fornecido, então a linha atual será editada. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_aa35b724716a8e628fa030d7c67978338}{insert} (const size\+\_\+type \+\_\+n=0, const std\+::string \&\+\_\+txt=std\+::string())
+\begin{DoxyCompactList}\small\item\em Entra no modo edição, permitindo a inserção de texto antes da linha n; Se n não é fornecido, o texto é inserido antes da linha atual. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_a4efd2a55425f6bac58ededbc804ed794}{append} (const size\+\_\+type \+\_\+n=0, const std\+::string \&\+\_\+txt=std\+::string())
+\begin{DoxyCompactList}\small\item\em Entra no modo edição, permitindo a inserção de texto depois da linha n; Se n não é fornecido, o texto é inserido depois da linha atual. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_ac393142dde010808f56a76e3914886a4}{deleteL} (const size\+\_\+type \+\_\+n=0, const size\+\_\+type \+\_\+m=0)
+\begin{DoxyCompactList}\small\item\em Remove as linhas n até m. Se apenas n é fornecido, remove-\/se a linha n. Se nenhum número é fornecido, remove-\/se a linha atual. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_ae482e818bd705f4a0fa326ca2c6c6b06}{copy} (const size\+\_\+type \+\_\+n=0, const size\+\_\+type \+\_\+m=0)
+\begin{DoxyCompactList}\small\item\em Copia as linhas n até m para um buffer. Se apenas n é fornecido, copia-\/se a linha n. Se nenhum número é fornecido, copia-\/se a linha atual. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_ad140924a1cb1425b573934a3abd4475c}{paste} (const size\+\_\+type \+\_\+n=0)
+\begin{DoxyCompactList}\small\item\em Cola (inserindo) as linhas atualmente armazenada no buffer depois da linha n, permanecendo no modo de comando. Se nenhum número é fornecido, as linhas serão coladas logo após a linha atual. \end{DoxyCompactList}\item 
+size\+\_\+type \hyperlink{classelis_ab869080dfc9c83c577e4550eed1f17c1}{size} ()
+\begin{DoxyCompactList}\small\item\em Retorna a quantidade de linhas atualmente armazenadas. \end{DoxyCompactList}\item 
+size\+\_\+type \hyperlink{classelis_a20956774b5e7ce5bdb6e411c027497f4}{empty} ()
+\begin{DoxyCompactList}\small\item\em Verifica se o arquivo atual está vázio. \end{DoxyCompactList}\item 
+size\+\_\+type \hyperlink{classelis_ae2b126d77fd190c84cabb303537a5265}{linha\+\_\+atual} ()
+\begin{DoxyCompactList}\small\item\em Retorna a posição da linha atual. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classelis_a32d5c4a0f9d37079b6115495a226b1e9}\label{classelis_a32d5c4a0f9d37079b6115495a226b1e9}} 
+void \hyperlink{classelis_a32d5c4a0f9d37079b6115495a226b1e9}{print\+\_\+linhas} ()
+\begin{DoxyCompactList}\small\item\em Imprime as linhas armazenadas na memoria (apenas para testes). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for elis. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classelis_a4efd2a55425f6bac58ededbc804ed794}\label{classelis_a4efd2a55425f6bac58ededbc804ed794}} 
+\index{elis@{elis}!append@{append}}
+\index{append@{append}!elis@{elis}}
+\subsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily void elis\+::append (\begin{DoxyParamCaption}\item[{const size\+\_\+type}]{\+\_\+n = {\ttfamily 0},  }\item[{const std\+::string \&}]{\+\_\+txt = {\ttfamily std\+:\+:string()} }\end{DoxyParamCaption})}
+
+
+
+Entra no modo edição, permitindo a inserção de texto depois da linha n; Se n não é fornecido, o texto é inserido depois da linha atual. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+n} & A linha n. \\
+\hline
+\mbox{\tt in}  & {\em \+\_\+txt} & O texto. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_ae482e818bd705f4a0fa326ca2c6c6b06}\label{classelis_ae482e818bd705f4a0fa326ca2c6c6b06}} 
+\index{elis@{elis}!copy@{copy}}
+\index{copy@{copy}!elis@{elis}}
+\subsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily void elis\+::copy (\begin{DoxyParamCaption}\item[{const size\+\_\+type}]{\+\_\+n = {\ttfamily 0},  }\item[{const size\+\_\+type}]{\+\_\+m = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Copia as linhas n até m para um buffer. Se apenas n é fornecido, copia-\/se a linha n. Se nenhum número é fornecido, copia-\/se a linha atual. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+n} & A linha n. \\
+\hline
+\mbox{\tt in}  & {\em \+\_\+m} & A linha m. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_ac393142dde010808f56a76e3914886a4}\label{classelis_ac393142dde010808f56a76e3914886a4}} 
+\index{elis@{elis}!deleteL@{deleteL}}
+\index{deleteL@{deleteL}!elis@{elis}}
+\subsubsection{\texorpdfstring{delete\+L()}{deleteL()}}
+{\footnotesize\ttfamily void elis\+::deleteL (\begin{DoxyParamCaption}\item[{const size\+\_\+type}]{\+\_\+n = {\ttfamily 0},  }\item[{const size\+\_\+type}]{\+\_\+m = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Remove as linhas n até m. Se apenas n é fornecido, remove-\/se a linha n. Se nenhum número é fornecido, remove-\/se a linha atual. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+n} & A linha n. \\
+\hline
+\mbox{\tt in}  & {\em \+\_\+m} & A linha m. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_acba75acf4af664df02db7dca65393f19}\label{classelis_acba75acf4af664df02db7dca65393f19}} 
+\index{elis@{elis}!edit@{edit}}
+\index{edit@{edit}!elis@{elis}}
+\subsubsection{\texorpdfstring{edit()}{edit()}}
+{\footnotesize\ttfamily void elis\+::edit (\begin{DoxyParamCaption}\item[{const size\+\_\+type}]{\+\_\+n }\end{DoxyParamCaption})}
+
+
+
+Edita linha n, posicionando o cursos no final da linha. A edição será básica, suportando apenas o uso do $<$backspace$>$ para apagar os caracteres da linha. Se n não é fornecido, então a linha atual será editada. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+n} & A linha n. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_a20956774b5e7ce5bdb6e411c027497f4}\label{classelis_a20956774b5e7ce5bdb6e411c027497f4}} 
+\index{elis@{elis}!empty@{empty}}
+\index{empty@{empty}!elis@{elis}}
+\subsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily size\+\_\+type elis\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica se o arquivo atual está vázio. 
+
+\begin{DoxyReturn}{Returns}
+True se o arquivo estiver vazio, false caso contrário. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classelis_aa35b724716a8e628fa030d7c67978338}\label{classelis_aa35b724716a8e628fa030d7c67978338}} 
+\index{elis@{elis}!insert@{insert}}
+\index{insert@{insert}!elis@{elis}}
+\subsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily void elis\+::insert (\begin{DoxyParamCaption}\item[{const size\+\_\+type}]{\+\_\+n = {\ttfamily 0},  }\item[{const std\+::string \&}]{\+\_\+txt = {\ttfamily std\+:\+:string()} }\end{DoxyParamCaption})}
+
+
+
+Entra no modo edição, permitindo a inserção de texto antes da linha n; Se n não é fornecido, o texto é inserido antes da linha atual. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+n} & A linha n. \\
+\hline
+\mbox{\tt in}  & {\em \+\_\+txt} & O texto. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_ae2b126d77fd190c84cabb303537a5265}\label{classelis_ae2b126d77fd190c84cabb303537a5265}} 
+\index{elis@{elis}!linha\+\_\+atual@{linha\+\_\+atual}}
+\index{linha\+\_\+atual@{linha\+\_\+atual}!elis@{elis}}
+\subsubsection{\texorpdfstring{linha\+\_\+atual()}{linha\_atual()}}
+{\footnotesize\ttfamily size\+\_\+type elis\+::linha\+\_\+atual (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retorna a posição da linha atual. 
+
+\begin{DoxyReturn}{Returns}
+A posição da linha atual. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classelis_a863421e1b739bbaa727da3ec66333248}\label{classelis_a863421e1b739bbaa727da3ec66333248}} 
+\index{elis@{elis}!modify@{modify}}
+\index{modify@{modify}!elis@{elis}}
+\subsubsection{\texorpdfstring{modify()}{modify()}}
+{\footnotesize\ttfamily void elis\+::modify (\begin{DoxyParamCaption}\item[{const size\+\_\+type}]{\+\_\+n = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Torna n linha atual. Se n não é fornecido então a última linha do texto passa a ser a atual. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+n} & A linha n. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_a23ea13aa06bd599d37b2b8f7fd8a5bf9}\label{classelis_a23ea13aa06bd599d37b2b8f7fd8a5bf9}} 
+\index{elis@{elis}!open@{open}}
+\index{open@{open}!elis@{elis}}
+\subsubsection{\texorpdfstring{open()}{open()}}
+{\footnotesize\ttfamily void elis\+::open (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Lê para a memória todas as linhas de texto do arquivo ascii name. Se o arquivo indicado não existir um novo arquivo vazio name deve ser criado. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+name} & O nome do arquivo. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_ad140924a1cb1425b573934a3abd4475c}\label{classelis_ad140924a1cb1425b573934a3abd4475c}} 
+\index{elis@{elis}!paste@{paste}}
+\index{paste@{paste}!elis@{elis}}
+\subsubsection{\texorpdfstring{paste()}{paste()}}
+{\footnotesize\ttfamily void elis\+::paste (\begin{DoxyParamCaption}\item[{const size\+\_\+type}]{\+\_\+n = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Cola (inserindo) as linhas atualmente armazenada no buffer depois da linha n, permanecendo no modo de comando. Se nenhum número é fornecido, as linhas serão coladas logo após a linha atual. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+n} & A linha n. \\
+\hline
+\mbox{\tt in}  & {\em \+\_\+m} & A linha m. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_ab869080dfc9c83c577e4550eed1f17c1}\label{classelis_ab869080dfc9c83c577e4550eed1f17c1}} 
+\index{elis@{elis}!size@{size}}
+\index{size@{size}!elis@{elis}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+type elis\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retorna a quantidade de linhas atualmente armazenadas. 
+
+\begin{DoxyReturn}{Returns}
+A quantidade de linhas. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classelis_a92ba8d201559a28f3592ab340311e108}\label{classelis_a92ba8d201559a28f3592ab340311e108}} 
+\index{elis@{elis}!write@{write}}
+\index{write@{write}!elis@{elis}}
+\subsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily void elis\+::write (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{\+\_\+name = {\ttfamily std\+:\+:string()} }\end{DoxyParamCaption})}
+
+
+
+Salva todas as linhas do texto em um arquivo ascii name. O Comando sem o fornecimento de um nome simplesmente grava o texto no arquivo atual. Se o nome do arquivo atual ainda não foi fornecido o programa deve solicitar um nome ao usuário. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+name} & O nome do arquivo. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+elis.\+h\end{DoxyCompactItemize}

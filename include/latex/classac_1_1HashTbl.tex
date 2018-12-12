@@ -1,0 +1,290 @@
+\hypertarget{classac_1_1HashTbl}{}\section{ac\+:\+:Hash\+Tbl$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$ Class Template Reference}
+\label{classac_1_1HashTbl}\index{ac\+::\+Hash\+Tbl$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$@{ac\+::\+Hash\+Tbl$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classac_1_1HashTbl_aa82a60fdfe94eb0f36016c5f1d400bcc}\label{classac_1_1HashTbl_aa82a60fdfe94eb0f36016c5f1d400bcc}} 
+using {\bfseries Entry} = \hyperlink{classac_1_1HashEntry}{Hash\+Entry}$<$ Key\+Type, Data\+Type $>$
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classac_1_1HashTbl_aec48560515eb829449943d3c2086c4a6}{Hash\+Tbl} (size\+\_\+type tbl\+\_\+size\+\_\+=D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE)
+\begin{DoxyCompactList}\small\item\em Contrói o vetor do hash com um tamanho determinando, que é o menor numero primo maior que o tamanho informado. \end{DoxyCompactList}\item 
+\hyperlink{classac_1_1HashTbl_a01ae3d3c982c76c68d189515894773c5}{Hash\+Tbl} (const \hyperlink{classac_1_1HashTbl}{Hash\+Tbl} \&other)
+\begin{DoxyCompactList}\small\item\em Construtor copia. \end{DoxyCompactList}\item 
+\hyperlink{classac_1_1HashTbl_ab88aa3e7c646fe6310bea58097a72dc1}{Hash\+Tbl} (std\+::initializer\+\_\+list$<$ \hyperlink{classac_1_1HashEntry}{Entry} $>$ ilist)
+\begin{DoxyCompactList}\small\item\em Construtor para lista inicializadora. \end{DoxyCompactList}\item 
+\hyperlink{classac_1_1HashTbl}{Hash\+Tbl} \& \hyperlink{classac_1_1HashTbl_ab0907d777c09da3d1071c30a96939c71}{operator=} (const \hyperlink{classac_1_1HashTbl}{Hash\+Tbl} \&other)
+\begin{DoxyCompactList}\small\item\em \{ operator\+\_\+description \} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classac_1_1HashTbl_a13febc90fbc2417ec7eff89dd282cd48}\label{classac_1_1HashTbl_a13febc90fbc2417ec7eff89dd282cd48}} 
+\hyperlink{classac_1_1HashTbl}{Hash\+Tbl} \& {\bfseries operator=} (std\+::initializer\+\_\+list$<$ \hyperlink{classac_1_1HashEntry}{Entry} $>$ ilist)
+\item 
+bool \hyperlink{classac_1_1HashTbl_ae472bbb6b9905b7fb6cb784195fb73ed}{empty} (void)
+\begin{DoxyCompactList}\small\item\em Verifica se o hash está vazio. \end{DoxyCompactList}\item 
+size\+\_\+type \hyperlink{classac_1_1HashTbl_aaf8d8a0f28b5c39c4eeac1218bf4df44}{size} (void)
+\begin{DoxyCompactList}\small\item\em Retorna a quantidade de elementos atualmente armazenados na tabela. \end{DoxyCompactList}\item 
+size\+\_\+type \hyperlink{classac_1_1HashTbl_ae9f33312566bd2abfae892cda4cff19e}{tam} (void)
+\begin{DoxyCompactList}\small\item\em Retorna o atual tamanho da tabela de dispersão. \end{DoxyCompactList}\item 
+size\+\_\+type \hyperlink{classac_1_1HashTbl_ae5dd7b78ebf842dfb67db7005c519479}{count} (const Key\+Type k\+\_\+) const
+\begin{DoxyCompactList}\small\item\em Retorna a quantidade de elementos da tabela que estão na lista de colisão associada a chave passada,. \end{DoxyCompactList}\item 
+bool \hyperlink{classac_1_1HashTbl_a219a559a1a07170cc0679c5d1dfb3758}{insert} (const Key\+Type \&k\+\_\+, const Data\+Type \&d\+\_\+)
+\begin{DoxyCompactList}\small\item\em Insere na tabela a informação passada e associada a uma chave informada . \end{DoxyCompactList}\item 
+bool \hyperlink{classac_1_1HashTbl_af3dd2fb806673ec64a9beec2c1fd7610}{erase} (const Key\+Type k\+\_\+)
+\begin{DoxyCompactList}\small\item\em Remove um item de tabela identificado por sua chave. \end{DoxyCompactList}\item 
+bool \hyperlink{classac_1_1HashTbl_afd9798982409ae5a1955259190fd175e}{retrieve} (const Key\+Type \&k\+\_\+, Data\+Type \&d\+\_\+) const
+\begin{DoxyCompactList}\small\item\em Recupera as informação associada a chave passada como argumento para o método. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classac_1_1HashTbl_a4fda203a257af1e3913128f03926878f}\label{classac_1_1HashTbl_a4fda203a257af1e3913128f03926878f}} 
+void \hyperlink{classac_1_1HashTbl_a4fda203a257af1e3913128f03926878f}{clear} (void)
+\begin{DoxyCompactList}\small\item\em Libera toda a memória associada às listas de colisão da tabela, removendo os elementos. \end{DoxyCompactList}\item 
+Data\+Type \& \hyperlink{classac_1_1HashTbl_a2afa09f4f299b65c575675152ba4415b}{operator\mbox{[}$\,$\mbox{]}} (const Key\+Type \&k\+\_\+)
+\begin{DoxyCompactList}\small\item\em Retorna uma referência para o dado associado a chave fornecida, se existir. Se a chave não estiver na tabela, o método realizar a inserção e retorna o novo dado. \end{DoxyCompactList}\item 
+Data\+Type \& \hyperlink{classac_1_1HashTbl_ac0933c629084aa2c996ecadc9dcee451}{at} (const Key\+Type \&k\+\_\+)
+\begin{DoxyCompactList}\small\item\em Retorna uma referência para o dado associado a chave fornecida. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classac_1_1HashTbl_a4a8d9a7fe26763596294c89dbe92c16f}\label{classac_1_1HashTbl_a4a8d9a7fe26763596294c89dbe92c16f}} 
+void \hyperlink{classac_1_1HashTbl_a4a8d9a7fe26763596294c89dbe92c16f}{print\+\_\+hash} ()
+\begin{DoxyCompactList}\small\item\em Imprime os dados do hash. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classac_1_1HashTbl_a1667c37762fa313023b57cc3f7d0f7a0}\label{classac_1_1HashTbl_a1667c37762fa313023b57cc3f7d0f7a0}} 
+std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&os, const \hyperlink{classac_1_1HashTbl}{Hash\+Tbl} \&h)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classac_1_1HashTbl_aec48560515eb829449943d3c2086c4a6}\label{classac_1_1HashTbl_aec48560515eb829449943d3c2086c4a6}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!Hash\+Tbl@{Hash\+Tbl}}
+\index{Hash\+Tbl@{Hash\+Tbl}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{Hash\+Tbl()}{HashTbl()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+\hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::\hyperlink{classac_1_1HashTbl}{Hash\+Tbl} (\begin{DoxyParamCaption}\item[{size\+\_\+type}]{tbl\+\_\+size\+\_\+ = {\ttfamily DEFAULT\+\_\+SIZE} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Contrói o vetor do hash com um tamanho determinando, que é o menor numero primo maior que o tamanho informado. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em tbl\+\_\+size\+\_\+} & O tamanho informado. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classac_1_1HashTbl_a01ae3d3c982c76c68d189515894773c5}\label{classac_1_1HashTbl_a01ae3d3c982c76c68d189515894773c5}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!Hash\+Tbl@{Hash\+Tbl}}
+\index{Hash\+Tbl@{Hash\+Tbl}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{Hash\+Tbl()}{HashTbl()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+\hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::\hyperlink{classac_1_1HashTbl}{Hash\+Tbl} (\begin{DoxyParamCaption}\item[{const \hyperlink{classac_1_1HashTbl}{Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construtor copia. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em other} & O hash que vai ser copiado. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classac_1_1HashTbl_ab88aa3e7c646fe6310bea58097a72dc1}\label{classac_1_1HashTbl_ab88aa3e7c646fe6310bea58097a72dc1}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!Hash\+Tbl@{Hash\+Tbl}}
+\index{Hash\+Tbl@{Hash\+Tbl}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{Hash\+Tbl()}{HashTbl()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+\hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::\hyperlink{classac_1_1HashTbl}{Hash\+Tbl} (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ \hyperlink{classac_1_1HashEntry}{Entry} $>$}]{ilist }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construtor para lista inicializadora. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ilist} & A lista inicializadora. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classac_1_1HashTbl_ac0933c629084aa2c996ecadc9dcee451}\label{classac_1_1HashTbl_ac0933c629084aa2c996ecadc9dcee451}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!at@{at}}
+\index{at@{at}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{at()}{at()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+Data\+Type\& \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::at (\begin{DoxyParamCaption}\item[{const Key\+Type \&}]{k\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retorna uma referência para o dado associado a chave fornecida. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em k\+\_\+} & A chave fornecida.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A referência para o dado associado. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_ae5dd7b78ebf842dfb67db7005c519479}\label{classac_1_1HashTbl_ae5dd7b78ebf842dfb67db7005c519479}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!count@{count}}
+\index{count@{count}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{count()}{count()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+size\+\_\+type \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::count (\begin{DoxyParamCaption}\item[{const Key\+Type}]{k\+\_\+ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retorna a quantidade de elementos da tabela que estão na lista de colisão associada a chave passada,. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em k\+\_\+} & A chave passada.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A quantidade de elementos. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_ae472bbb6b9905b7fb6cb784195fb73ed}\label{classac_1_1HashTbl_ae472bbb6b9905b7fb6cb784195fb73ed}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!empty@{empty}}
+\index{empty@{empty}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+bool \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::empty (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica se o hash está vazio. 
+
+\begin{DoxyReturn}{Returns}
+True se estiver vazio, false caso contrário. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_af3dd2fb806673ec64a9beec2c1fd7610}\label{classac_1_1HashTbl_af3dd2fb806673ec64a9beec2c1fd7610}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!erase@{erase}}
+\index{erase@{erase}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+bool \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::erase (\begin{DoxyParamCaption}\item[{const Key\+Type}]{k\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Remove um item de tabela identificado por sua chave. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em k\+\_\+} & A chave. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True se o item for encontrado, false caso contrário. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_a219a559a1a07170cc0679c5d1dfb3758}\label{classac_1_1HashTbl_a219a559a1a07170cc0679c5d1dfb3758}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!insert@{insert}}
+\index{insert@{insert}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+bool \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::insert (\begin{DoxyParamCaption}\item[{const Key\+Type \&}]{k\+\_\+,  }\item[{const Data\+Type \&}]{d\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Insere na tabela a informação passada e associada a uma chave informada . 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em k\+\_\+} & A chave informada. \\
+\hline
+\mbox{\tt in}  & {\em d\+\_\+} & A informação passada.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True se a chave já existir na tabela, false caso contrário. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_ab0907d777c09da3d1071c30a96939c71}\label{classac_1_1HashTbl_ab0907d777c09da3d1071c30a96939c71}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!operator=@{operator=}}
+\index{operator=@{operator=}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+\hyperlink{classac_1_1HashTbl}{Hash\+Tbl}\& \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \hyperlink{classac_1_1HashTbl}{Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\{ operator\+\_\+description \} 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em other} & The other\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\{ description\+\_\+of\+\_\+the\+\_\+return\+\_\+value \} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_a2afa09f4f299b65c575675152ba4415b}\label{classac_1_1HashTbl_a2afa09f4f299b65c575675152ba4415b}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+Data\+Type\& \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{const Key\+Type \&}]{k\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retorna uma referência para o dado associado a chave fornecida, se existir. Se a chave não estiver na tabela, o método realizar a inserção e retorna o novo dado. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em k\+\_\+} & A chave fornecida.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A referencia ao dado associado. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_afd9798982409ae5a1955259190fd175e}\label{classac_1_1HashTbl_afd9798982409ae5a1955259190fd175e}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!retrieve@{retrieve}}
+\index{retrieve@{retrieve}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{retrieve()}{retrieve()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+bool \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::retrieve (\begin{DoxyParamCaption}\item[{const Key\+Type \&}]{k\+\_\+,  }\item[{Data\+Type \&}]{d\+\_\+ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Recupera as informação associada a chave passada como argumento para o método. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em k\+\_\+} & A chave. \\
+\hline
+ & {\em d\+\_\+} & Informação associada.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True se a chave for encontrada, false caso contrário. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_aaf8d8a0f28b5c39c4eeac1218bf4df44}\label{classac_1_1HashTbl_aaf8d8a0f28b5c39c4eeac1218bf4df44}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!size@{size}}
+\index{size@{size}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+size\+\_\+type \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retorna a quantidade de elementos atualmente armazenados na tabela. 
+
+\begin{DoxyReturn}{Returns}
+A quantidade de elementos. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classac_1_1HashTbl_ae9f33312566bd2abfae892cda4cff19e}\label{classac_1_1HashTbl_ae9f33312566bd2abfae892cda4cff19e}} 
+\index{ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}!tam@{tam}}
+\index{tam@{tam}!ac\+::\+Hash\+Tbl@{ac\+::\+Hash\+Tbl}}
+\subsubsection{\texorpdfstring{tam()}{tam()}}
+{\footnotesize\ttfamily template$<$typename Key\+Type, typename Data\+Type, typename Key\+Hash = std\+::hash$<$ Key\+Type $>$, typename Key\+Equal = std\+::equal\+\_\+to$<$ Key\+Type $>$$>$ \\
+size\+\_\+type \hyperlink{classac_1_1HashTbl}{ac\+::\+Hash\+Tbl}$<$ Key\+Type, Data\+Type, Key\+Hash, Key\+Equal $>$\+::tam (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retorna o atual tamanho da tabela de dispersão. 
+
+\begin{DoxyReturn}{Returns}
+O tamanho da tabela. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+hashtbl.\+h\end{DoxyCompactItemize}
