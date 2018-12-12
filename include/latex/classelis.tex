@@ -2,13 +2,22 @@
 \label{classelis}\index{elis@{elis}}
 
 
-Class for elis.  
+classe com as funcionalidades do Editor de L\+Inha Simples.  
 
 
 
 
 {\ttfamily \#include $<$elis.\+h$>$}
 
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classelis_a1d42edb1a12746c566712c4b4250769e}\label{classelis_a1d42edb1a12746c566712c4b4250769e}} 
+enum \hyperlink{classelis_a1d42edb1a12746c566712c4b4250769e}{Modo} \{ {\bfseries mo\+\_\+normal}, 
+{\bfseries mo\+\_\+edit}, 
+{\bfseries mo\+\_\+command}
+ \}\begin{DoxyCompactList}\small\item\em Os modos do exclusivos do E\+L\+IS, modo normal, edição e comando. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -45,13 +54,23 @@ size\+\_\+type \hyperlink{classelis_a20956774b5e7ce5bdb6e411c027497f4}{empty} ()
 \begin{DoxyCompactList}\small\item\em Verifica se o arquivo atual está vázio. \end{DoxyCompactList}\item 
 size\+\_\+type \hyperlink{classelis_ae2b126d77fd190c84cabb303537a5265}{linha\+\_\+atual} ()
 \begin{DoxyCompactList}\small\item\em Retorna a posição da linha atual. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classelis_a9dd72229bed65be90429180f7259d129}{get\+\_\+row} (const size\+\_\+type \&\+\_\+n)
+\begin{DoxyCompactList}\small\item\em Obtém o dado associado ao indice da linha fornecido. \end{DoxyCompactList}\item 
+bool \hyperlink{classelis_a47227a09ae7cf66bc40fae46220664d6}{file\+\_\+is\+\_\+open} ()
+\begin{DoxyCompactList}\small\item\em Verifica se atualmente há um arquivo aberto. \end{DoxyCompactList}\item 
+const std\+::string \& \hyperlink{classelis_ad8e03261882991d20a6ea83861a5112e}{get\+\_\+file\+\_\+name} () const
+\begin{DoxyCompactList}\small\item\em Obtém o nome do arquivo atual. \end{DoxyCompactList}\item 
+const \hyperlink{classelis_a1d42edb1a12746c566712c4b4250769e}{Modo} \hyperlink{classelis_a00d301532dcaf2b3079f702bc9e578e2}{get\+\_\+current\+\_\+mode} () const
+\begin{DoxyCompactList}\small\item\em Obtém o modo atual do elis. \end{DoxyCompactList}\item 
+void \hyperlink{classelis_a4ef54bc5f180b68de8c15510b0d25059}{set\+\_\+current\+\_\+mode} (const \hyperlink{classelis_a1d42edb1a12746c566712c4b4250769e}{Modo} \&\+\_\+mod)
+\begin{DoxyCompactList}\small\item\em Modifica o modo atual do elis. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classelis_a32d5c4a0f9d37079b6115495a226b1e9}\label{classelis_a32d5c4a0f9d37079b6115495a226b1e9}} 
 void \hyperlink{classelis_a32d5c4a0f9d37079b6115495a226b1e9}{print\+\_\+linhas} ()
 \begin{DoxyCompactList}\small\item\em Imprime as linhas armazenadas na memoria (apenas para testes). \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Class for elis. 
+classe com as funcionalidades do Editor de L\+Inha Simples. 
 
 \subsection{Member Function Documentation}
 \mbox{\Hypertarget{classelis_a4efd2a55425f6bac58ededbc804ed794}\label{classelis_a4efd2a55425f6bac58ededbc804ed794}} 
@@ -133,6 +152,63 @@ Verifica se o arquivo atual está vázio.
 \begin{DoxyReturn}{Returns}
 True se o arquivo estiver vazio, false caso contrário. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classelis_a47227a09ae7cf66bc40fae46220664d6}\label{classelis_a47227a09ae7cf66bc40fae46220664d6}} 
+\index{elis@{elis}!file\+\_\+is\+\_\+open@{file\+\_\+is\+\_\+open}}
+\index{file\+\_\+is\+\_\+open@{file\+\_\+is\+\_\+open}!elis@{elis}}
+\subsubsection{\texorpdfstring{file\+\_\+is\+\_\+open()}{file\_is\_open()}}
+{\footnotesize\ttfamily bool elis\+::file\+\_\+is\+\_\+open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Verifica se atualmente há um arquivo aberto. 
+
+\begin{DoxyReturn}{Returns}
+True se há um arquivo aberto, false caso contrário. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classelis_a00d301532dcaf2b3079f702bc9e578e2}\label{classelis_a00d301532dcaf2b3079f702bc9e578e2}} 
+\index{elis@{elis}!get\+\_\+current\+\_\+mode@{get\+\_\+current\+\_\+mode}}
+\index{get\+\_\+current\+\_\+mode@{get\+\_\+current\+\_\+mode}!elis@{elis}}
+\subsubsection{\texorpdfstring{get\+\_\+current\+\_\+mode()}{get\_current\_mode()}}
+{\footnotesize\ttfamily const \hyperlink{classelis_a1d42edb1a12746c566712c4b4250769e}{Modo} elis\+::get\+\_\+current\+\_\+mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Obtém o modo atual do elis. 
+
+\begin{DoxyReturn}{Returns}
+O modo atual. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classelis_ad8e03261882991d20a6ea83861a5112e}\label{classelis_ad8e03261882991d20a6ea83861a5112e}} 
+\index{elis@{elis}!get\+\_\+file\+\_\+name@{get\+\_\+file\+\_\+name}}
+\index{get\+\_\+file\+\_\+name@{get\+\_\+file\+\_\+name}!elis@{elis}}
+\subsubsection{\texorpdfstring{get\+\_\+file\+\_\+name()}{get\_file\_name()}}
+{\footnotesize\ttfamily const std\+::string\& elis\+::get\+\_\+file\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Obtém o nome do arquivo atual. 
+
+\begin{DoxyReturn}{Returns}
+O nome do arquivo. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classelis_a9dd72229bed65be90429180f7259d129}\label{classelis_a9dd72229bed65be90429180f7259d129}} 
+\index{elis@{elis}!get\+\_\+row@{get\+\_\+row}}
+\index{get\+\_\+row@{get\+\_\+row}!elis@{elis}}
+\subsubsection{\texorpdfstring{get\+\_\+row()}{get\_row()}}
+{\footnotesize\ttfamily std\+::string elis\+::get\+\_\+row (\begin{DoxyParamCaption}\item[{const size\+\_\+type \&}]{\+\_\+n }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Obtém o dado associado ao indice da linha fornecido. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+n} & O indice da linha.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+O dado associado ao indice. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classelis_aa35b724716a8e628fa030d7c67978338}\label{classelis_aa35b724716a8e628fa030d7c67978338}} 
 \index{elis@{elis}!insert@{insert}}
 \index{insert@{insert}!elis@{elis}}
@@ -208,6 +284,21 @@ Cola (inserindo) as linhas atualmente armazenada no buffer depois da linha n, pe
 \mbox{\tt in}  & {\em \+\_\+n} & A linha n. \\
 \hline
 \mbox{\tt in}  & {\em \+\_\+m} & A linha m. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classelis_a4ef54bc5f180b68de8c15510b0d25059}\label{classelis_a4ef54bc5f180b68de8c15510b0d25059}} 
+\index{elis@{elis}!set\+\_\+current\+\_\+mode@{set\+\_\+current\+\_\+mode}}
+\index{set\+\_\+current\+\_\+mode@{set\+\_\+current\+\_\+mode}!elis@{elis}}
+\subsubsection{\texorpdfstring{set\+\_\+current\+\_\+mode()}{set\_current\_mode()}}
+{\footnotesize\ttfamily void elis\+::set\+\_\+current\+\_\+mode (\begin{DoxyParamCaption}\item[{const \hyperlink{classelis_a1d42edb1a12746c566712c4b4250769e}{Modo} \&}]{\+\_\+mod }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Modifica o modo atual do elis. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em \+\_\+mod} & O novo modo atual. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{classelis_ab869080dfc9c83c577e4550eed1f17c1}\label{classelis_ab869080dfc9c83c577e4550eed1f17c1}} 

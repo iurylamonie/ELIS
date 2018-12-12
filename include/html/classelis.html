@@ -59,6 +59,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classelis-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -66,11 +67,20 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Class for elis.  
+<p>classe com as funcionalidades do Editor de LInha Simples.  
  <a href="classelis.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="elis_8h_source.html">elis.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a1d42edb1a12746c566712c4b4250769e"><td class="memItemLeft" align="right" valign="top"><a id="a1d42edb1a12746c566712c4b4250769e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelis.html#a1d42edb1a12746c566712c4b4250769e">Modo</a> { <b>mo_normal</b>, 
+<b>mo_edit</b>, 
+<b>mo_command</b>
+ }<tr class="memdesc:a1d42edb1a12746c566712c4b4250769e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Os modos do exclusivos do ELIS, modo normal, edição e comando. <br /></td></tr>
+</td></tr>
+<tr class="separator:a1d42edb1a12746c566712c4b4250769e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab0982ac8d4cf72566aab79a002559831"><td class="memItemLeft" align="right" valign="top"><a id="ab0982ac8d4cf72566aab79a002559831"></a>
@@ -121,13 +131,28 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ae2b126d77fd190c84cabb303537a5265"><td class="memItemLeft" align="right" valign="top">size_type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelis.html#ae2b126d77fd190c84cabb303537a5265">linha_atual</a> ()</td></tr>
 <tr class="memdesc:ae2b126d77fd190c84cabb303537a5265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retorna a posição da linha atual.  <a href="#ae2b126d77fd190c84cabb303537a5265">More...</a><br /></td></tr>
 <tr class="separator:ae2b126d77fd190c84cabb303537a5265"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dd72229bed65be90429180f7259d129"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelis.html#a9dd72229bed65be90429180f7259d129">get_row</a> (const size_type &amp;_n)</td></tr>
+<tr class="memdesc:a9dd72229bed65be90429180f7259d129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtém o dado associado ao indice da linha fornecido.  <a href="#a9dd72229bed65be90429180f7259d129">More...</a><br /></td></tr>
+<tr class="separator:a9dd72229bed65be90429180f7259d129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47227a09ae7cf66bc40fae46220664d6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelis.html#a47227a09ae7cf66bc40fae46220664d6">file_is_open</a> ()</td></tr>
+<tr class="memdesc:a47227a09ae7cf66bc40fae46220664d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica se atualmente há um arquivo aberto.  <a href="#a47227a09ae7cf66bc40fae46220664d6">More...</a><br /></td></tr>
+<tr class="separator:a47227a09ae7cf66bc40fae46220664d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e03261882991d20a6ea83861a5112e"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelis.html#ad8e03261882991d20a6ea83861a5112e">get_file_name</a> () const</td></tr>
+<tr class="memdesc:ad8e03261882991d20a6ea83861a5112e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtém o nome do arquivo atual.  <a href="#ad8e03261882991d20a6ea83861a5112e">More...</a><br /></td></tr>
+<tr class="separator:ad8e03261882991d20a6ea83861a5112e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00d301532dcaf2b3079f702bc9e578e2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classelis.html#a1d42edb1a12746c566712c4b4250769e">Modo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelis.html#a00d301532dcaf2b3079f702bc9e578e2">get_current_mode</a> () const</td></tr>
+<tr class="memdesc:a00d301532dcaf2b3079f702bc9e578e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtém o modo atual do elis.  <a href="#a00d301532dcaf2b3079f702bc9e578e2">More...</a><br /></td></tr>
+<tr class="separator:a00d301532dcaf2b3079f702bc9e578e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef54bc5f180b68de8c15510b0d25059"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelis.html#a4ef54bc5f180b68de8c15510b0d25059">set_current_mode</a> (const <a class="el" href="classelis.html#a1d42edb1a12746c566712c4b4250769e">Modo</a> &amp;_mod)</td></tr>
+<tr class="memdesc:a4ef54bc5f180b68de8c15510b0d25059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifica o modo atual do elis.  <a href="#a4ef54bc5f180b68de8c15510b0d25059">More...</a><br /></td></tr>
+<tr class="separator:a4ef54bc5f180b68de8c15510b0d25059"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32d5c4a0f9d37079b6115495a226b1e9"><td class="memItemLeft" align="right" valign="top"><a id="a32d5c4a0f9d37079b6115495a226b1e9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classelis.html#a32d5c4a0f9d37079b6115495a226b1e9">print_linhas</a> ()</td></tr>
 <tr class="memdesc:a32d5c4a0f9d37079b6115495a226b1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imprime as linhas armazenadas na memoria (apenas para testes). <br /></td></tr>
 <tr class="separator:a32d5c4a0f9d37079b6115495a226b1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class for elis. </p>
+<div class="textblock"><p>classe com as funcionalidades do Editor de LInha Simples. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4efd2a55425f6bac58ededbc804ed794"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4efd2a55425f6bac58ededbc804ed794">&#9670;&nbsp;</a></span>append()</h2>
@@ -294,6 +319,125 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a id="a47227a09ae7cf66bc40fae46220664d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47227a09ae7cf66bc40fae46220664d6">&#9670;&nbsp;</a></span>file_is_open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool elis::file_is_open </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Verifica se atualmente há um arquivo aberto. </p>
+<dl class="section return"><dt>Returns</dt><dd>True se há um arquivo aberto, false caso contrário. </dd></dl>
+
+</div>
+</div>
+<a id="a00d301532dcaf2b3079f702bc9e578e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00d301532dcaf2b3079f702bc9e578e2">&#9670;&nbsp;</a></span>get_current_mode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classelis.html#a1d42edb1a12746c566712c4b4250769e">Modo</a> elis::get_current_mode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtém o modo atual do elis. </p>
+<dl class="section return"><dt>Returns</dt><dd>O modo atual. </dd></dl>
+
+</div>
+</div>
+<a id="ad8e03261882991d20a6ea83861a5112e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e03261882991d20a6ea83861a5112e">&#9670;&nbsp;</a></span>get_file_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; elis::get_file_name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtém o nome do arquivo atual. </p>
+<dl class="section return"><dt>Returns</dt><dd>O nome do arquivo. </dd></dl>
+
+</div>
+</div>
+<a id="a9dd72229bed65be90429180f7259d129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dd72229bed65be90429180f7259d129">&#9670;&nbsp;</a></span>get_row()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string elis::get_row </td>
+          <td>(</td>
+          <td class="paramtype">const size_type &amp;&#160;</td>
+          <td class="paramname"><em>_n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Obtém o dado associado ao indice da linha fornecido. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_n</td><td>O indice da linha.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>O dado associado ao indice. </dd></dl>
+
+</div>
+</div>
 <a id="aa35b724716a8e628fa030d7c67978338"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa35b724716a8e628fa030d7c67978338">&#9670;&nbsp;</a></span>insert()</h2>
 
@@ -432,6 +576,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">_n</td><td>A linha n. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">_m</td><td>A linha m. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4ef54bc5f180b68de8c15510b0d25059"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ef54bc5f180b68de8c15510b0d25059">&#9670;&nbsp;</a></span>set_current_mode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void elis::set_current_mode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classelis.html#a1d42edb1a12746c566712c4b4250769e">Modo</a> &amp;&#160;</td>
+          <td class="paramname"><em>_mod</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Modifica o modo atual do elis. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_mod</td><td>O novo modo atual. </td></tr>
   </table>
   </dd>
 </dl>
