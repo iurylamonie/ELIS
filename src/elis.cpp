@@ -25,14 +25,38 @@ void elis::redistribute( const size_type _n )
 		}
 	}
 }
+//== OPERAÇÕES DA JANELA
 
+void help()
+{
+	std::cout << "Precisa de ajuda? Não conte comigo!" << std::endl;
+}
 //== OPERAÇÕES SOBRE O ARQUIVO
+
+void elis::quit()
+{
+	// Verifica se o arquivo está salvo
+	if( this->m_save )
+	{
+		//^ O arquivo está salvo.
+
+		//Zera os atributos, menos o buffer de cópia.
+		this->m_curr_lin = 0;
+		this->m_save = false;
+		this->m_name_file.clear();
+		this->m_data_file.clear();
+	}
+	else
+	{
+		std::cout << "As alterações no arquivo não foram salvas! Deseja sair?" << std::endl;
+	}
+}
 
 void elis::write( const std::string & _name )
 {
 	// Verifica se o nome do arquivo foi informado.
 	if( _name != std::string() ) //< Grava no arquivo informado.
-	{
+	{	
 		std::ofstream file( _name );
 		if( file.is_open() )
 		{
@@ -45,6 +69,14 @@ void elis::write( const std::string & _name )
 				// Verifica se a linha que vai ser inserida é a ultima.
 				if( i != this->size() ) file << line + "\n";
 				else file << line;
+			}
+			// Verifica se existe arquivo atual.
+			if( this->m_name_file.empty() )
+			{
+				// Caso não tenha arquivo atual,
+				// o arquivo recém-salvo se torna o arquivo atual.
+				this->m_name_file = _name;
+				this->m_save = true;
 			}
 			file.close();
 		} else std::cout << "file isn't open!" << std::endl;
@@ -64,6 +96,7 @@ void elis::write( const std::string & _name )
 				if( i != this->size() ) file_stream << line + "\n";
 				else file_stream << line;
 			}
+			this->m_save = true;
 		}
 		else std::cout << "Current file isn't open!" << std::endl;
 	}
@@ -71,34 +104,44 @@ void elis::write( const std::string & _name )
 
 void elis::open( const std::string & _name)
 {
-	this->m_name_file =  _name;
-	std::fstream file_stream( this->m_name_file, std::fstream::out | std::fstream::in );
-	// Verifica se o arquivo foi aberto.
-	if( file_stream.is_open() )
+	// Verifica se já tem um arquivo aberto que não foi salvo.
+	if( !this->m_name_file.empty() && !this->m_save )
 	{
-		// Limpa a memória.
-		this->m_data_file.clear();
-		// Reseta a posição atual( não tem posição atual).
-		this->modify();
-
-		size_type i = 1; //< Identificador da linha.
-		std::string line; //< Texto da linha.
-		// Percorre todo arquivo.
-		while( std::getline( file_stream, line) )
-		{
-			// Insere a linha na memoria.
-			this->m_data_file.insert( i, line);
-			++i;
-		}
+		this->quit();
 	}
 	else
 	{
-		// Cria um novo arquivo vazio.
-		file_stream.open( this->m_name_file, std::fstream::out | std::fstream::in | std::fstream::trunc );
-		// Limpa a memória.
-		this->m_data_file.clear();
-		// Reseta a posição atual( não tem posição atual).
-		this->modify();
+		this->m_name_file =  _name;
+		std::fstream file_stream( this->m_name_file, std::fstream::out | std::fstream::in );
+		// Verifica se o arquivo foi aberto.
+		if( file_stream.is_open() )
+		{
+			// Limpa a memória.
+			this->m_data_file.clear();
+			// Reseta a posição atual( não tem posição atual).
+			this->modify();
+
+			size_type i = 1; //< Identificador da linha.
+			std::string line; //< Texto da linha.
+			// Percorre todo arquivo.
+			while( std::getline( file_stream, line) )
+			{
+				// Insere a linha na memoria.
+				this->m_data_file.insert( i, line);
+				++i;
+			}
+			this->m_save = true;
+		}
+		else
+		{
+			// Cria um novo arquivo vazio.
+			file_stream.open( this->m_name_file, std::fstream::out | std::fstream::in | std::fstream::trunc );
+			// Limpa a memória.
+			this->m_data_file.clear();
+			// Reseta a posição atual( não tem posição atual).
+			this->modify();
+			this->m_save = true;
+		}
 	}
 }
 
@@ -152,22 +195,20 @@ void elis::undo( void )
 
 void elis::insert( const size_type _n, const std::string & _txt )
 {
-	Exe_commands ec;
-	// Guarda o comando executado.
-	ec.ms_command = c_insert;
-	ec.ms_size = 1; //< Quantas linhas inseridas.
-	// Guarda o indice e os dados contidos na linha.
-	HEntry entry( _n, _txt );
-	
 	// Verifica se foi informado a linha n ou se a linha n existe.
 	if( ( _n != 0 ) && ( _n <= this->size() ) )
 	{
 		// Reorganiza as linhas.
+		// Deixa o indice n "vago".
 		this->redistribute( _n );
 		// Insere a linha,
 		this->m_data_file.insert( _n, _txt );
-		// Guarda qual linha foi inserida.
-		ec.ms_affec_rows.push_back(entry);
+	}
+	// Verifica se o indice n é maior que a quantidade de linhas atuais.
+	else if( _n > this->size() )
+	{
+		// Insere na última linha.
+		this->m_data_file.insert( this->size() + 1, _txt );
 	}
 	// Verifica se tem linha atual
 	else if( this->m_curr_lin != 0 )
@@ -176,52 +217,42 @@ void elis::insert( const size_type _n, const std::string & _txt )
 		this->redistribute( this->m_curr_lin );
 		// Insere a linha,
 		this->m_data_file.insert( this->m_curr_lin, _txt );
-		// Guarda qual linha foi inserida.
-		ec.ms_affec_rows.push_back(entry);
 	}
 	else 
 	{
 		this->m_data_file.insert( 1, _txt ); //< insere na primeira linha.
-		// Guarda qual linha foi inserida.
-		entry.m_key = 1;
-		ec.ms_affec_rows.push_back(entry);
 	}
-	this->m_stack_exc.push(ec); //< Armazena na pilha o comando e as linhas alteradas.
+	// Os dados foram modificados.
+	this->m_save = false;
 }
 
 void elis::append( const size_type _n, const std::string & _txt )
 {
-	
-	Exe_commands ec;
-	// Guarda o comando executado.
-	ec.ms_command = c_append;
-	ec.ms_size = 1; //< Quantas linhas inseridas.
-	// Guarda o indice e os dados contidos na linha.
-	HEntry entry( _n, _txt );
-
 	// Verifica se foi informado a linha ou se a linha informada existe.
 	if( ( _n != 0 ) && ( _n <= this->m_data_file.size() ) )
 	{
+		// Reorganiza as linhas.
+		// Deixa o indice n + 1 "vago".
 		this->redistribute( _n + 1 );
 		this->m_data_file.insert( _n + 1, _txt );
-		// Guarda qual linha foi inserida.
-		ec.ms_affec_rows.push_back(entry);
+	}
+	// Verifica se o indice n é maior que a quantidade de linhas atuais.
+	else if( _n > this->size() )
+	{
+		// Insere na última linha.
+		this->m_data_file.insert( this->size() + 1, _txt );
 	}
 	// Verifica se tem linha atual
 	else if( this->m_curr_lin != 0 )
 	{
 		this->redistribute( this->m_curr_lin + 1);
 		this->m_data_file.insert( this->m_curr_lin + 1, _txt );
-		// Guarda qual linha foi inserida.
-		ec.ms_affec_rows.push_back(entry);
 	}
 	else 
 	{
 		this->m_data_file.insert( 1, _txt ); //< insere na primeira linha.
-		entry.m_key = 1;
-		ec.ms_affec_rows.push_back(entry);
 	}
-	this->m_stack_exc.push(ec);
+	this->m_save = false;
 }
 
 void elis::deleteL( const size_type _n, const size_type _m)
@@ -229,7 +260,7 @@ void elis::deleteL( const size_type _n, const size_type _m)
 	if( _n != 0 )
 	{
 		//	Verifica se o m foi informado e se m ultrapassa a quantidade de linhas.
-		if( ( _m != 0 ) && ( _m <= this->m_data_file.size() ) )
+		if( ( _m != 0 ) && ( _m <= this->m_data_file.size() ) && ( _m >= _n ) )
 		{
 			// Armazena a quantidade de linhas antes de deletar as linhas
 			// de _n até _m.
@@ -258,8 +289,25 @@ void elis::deleteL( const size_type _n, const size_type _m)
 					++j;
 				}
 			}
+			this->m_save = false;
 		}
-		else
+		// Verifica se m é maior que a quantidade de linhas do arquivo.
+		else if( _m > this->size() )
+		{
+			// Armazena a quantidade de linhas antes de deletar as linhas
+			// de _n até quantidade de linhas atuais.
+			size_type old_size = this->size();
+			// Deleta as linhas de _n até size().
+			for (int i = _n; i <= old_size; ++i)
+			{
+				this->m_data_file.erase( i );
+				// Verifica se está deletando a linha atual.
+				if( this->m_curr_lin == i ) this->modify( _n - 1);
+			}
+
+			this->m_save = false;
+		}
+		else if ( ( _n > _m ) && ( _n <= this->size() ) )
 		{	
 			// Armazena a quantidade de linhas antes de deletar a linha _n.
 			size_type old_size = this->size();
@@ -284,10 +332,11 @@ void elis::deleteL( const size_type _n, const size_type _m)
 					this->m_data_file.erase(i);
 					++j;
 				}
-			}
+			}		
+			this->m_save = false;
 		}
 	}
-	else 
+	else if( _n == 0 )
 	{
 		// Armazena a quantidade de linhas antes de deletar a linha current.
 		size_type old_size = this->size();
@@ -314,6 +363,8 @@ void elis::deleteL( const size_type _n, const size_type _m)
 		{
 			--this->m_curr_lin;
 		}
+
+		this->m_save = false;
 	}
 }
 
@@ -324,7 +375,7 @@ void elis::copy( const size_type _n, const size_type _m )
 	{
 		//	Verifica se o m foi informado e se m ultrapassa a quantidade de linhas.
 		//	e se _n é diferente de _m.
-		if( ( _m != 0 ) && ( _m <= this->m_data_file.size() ) && ( _n != _m ) )
+		if( ( _m != 0 ) && ( _m <= this->size() ) /*&& ( _n != _m )*/ )
 		{
 			this->m_size_copy = _m - _n + 1;
 			size_type j = 0;
@@ -335,14 +386,21 @@ void elis::copy( const size_type _n, const size_type _m )
 				++j;
 			}
 		}
-		else 
+		// Verifica se m é maior que a quantidade de linhas atuais.
+		else if( _m > this->size() )
 		{
-			this->m_copy_buffer = new std::string( this->m_data_file[_n] );//< Se a linha m não for informada ou m ultrapassa a quantidade de linhas.
-			this->m_size_copy = 1;
+			this->m_size_copy = _m - this->size() + 1;
+			size_type j = 0;
+			this->m_copy_buffer = new std::string[this->m_size_copy];
+			for (int i = _n; i <= this->size(); ++i)
+			{
+				this->m_copy_buffer[j] = this->m_data_file[i];
+				++j;
+			}
 		}
 		
 	}
-	else
+	else if( _n == 0)
 	{
 		this->m_copy_buffer = new std::string( this->m_data_file[this->m_curr_lin] );
 		this->m_size_copy = 1;
@@ -364,6 +422,7 @@ void elis::paste( const size_type _n )
 			if( _n <  old_size ) this->redistribute( _n + i );
 			// Armazena o texto armazenado no copy buffer para os dados do arquivo.
 			this->m_data_file.insert( _n + i, this->m_copy_buffer[ i - 1 ] );
+			if( i == 1 ) this->m_save = false;
 		}
 	}
 	else
@@ -378,6 +437,7 @@ void elis::paste( const size_type _n )
 			if( this->m_curr_lin < old_size ) this->redistribute( this->m_curr_lin + i );
 			// Armazena o texto armazenado no copy buffer para os dados do arquivo.
 			this->m_data_file.insert( this->m_curr_lin + i, this->m_copy_buffer[ i - 1 ] );
+			if( i == 1 ) this->m_save = false;
 		}
 	}	
 }
