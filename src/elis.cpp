@@ -105,7 +105,7 @@ void elis::write( const std::string & _name )
 void elis::open( const std::string & _name)
 {
 	// Verifica se já tem um arquivo aberto que não foi salvo.
-	if( !this->m_name_file.empty() && !this->m_save )
+	if( this->m_name_file.empty() && !this->m_save )
 	{
 		this->quit();
 	}
@@ -338,6 +338,7 @@ void elis::deleteL( const size_type _n, const size_type _m)
 	}
 	else if( _n == 0 )
 	{
+		{}
 		// Armazena a quantidade de linhas antes de deletar a linha current.
 		size_type old_size = this->size();
 

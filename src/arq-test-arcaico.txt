@@ -1,3 +1,10 @@
+/**
+ * @autor Iury Lamonie
+ *
+ * @brief Antigo arquivo de teste, ultrapassado!
+ * 
+ * @status Passou em tudo.
+ */
 #include <iostream>
 #include <string>
 #include <iterator>
