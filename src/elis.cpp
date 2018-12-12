@@ -5,9 +5,11 @@
 elis::elis()
 {
 	// Essas informações são desnecessarias já que são valores padrões.
-	this->m_save = false;
+	this->m_save = true;
 	this->m_curr_lin = 0;
+	//delete this->m_copy_buffer;
 	this->m_size_copy = 0;
+	this->m_current_mode = elis::Modo::mo_normal;
 }
 
 //== FUNÇÕES AUXILIARES.
@@ -71,7 +73,7 @@ void elis::write( const std::string & _name )
 				else file << line;
 			}
 			// Verifica se existe arquivo atual.
-			if( this->m_name_file.empty() )
+			if( this->file_is_open() )
 			{
 				// Caso não tenha arquivo atual,
 				// o arquivo recém-salvo se torna o arquivo atual.
@@ -105,7 +107,7 @@ void elis::write( const std::string & _name )
 void elis::open( const std::string & _name)
 {
 	// Verifica se já tem um arquivo aberto que não foi salvo.
-	if( this->m_name_file.empty() && !this->m_save )
+	if( this->file_is_open() && !this->m_save )
 	{
 		this->quit();
 	}
@@ -118,8 +120,7 @@ void elis::open( const std::string & _name)
 		{
 			// Limpa a memória.
 			this->m_data_file.clear();
-			// Reseta a posição atual( não tem posição atual).
-			this->modify();
+			
 
 			size_type i = 1; //< Identificador da linha.
 			std::string line; //< Texto da linha.
@@ -131,6 +132,15 @@ void elis::open( const std::string & _name)
 				++i;
 			}
 			this->m_save = true;
+			// Verifica se tem dados na memoria.
+			if( this->empty() )
+			{
+				// Se estiver vazia,
+				// A linha atual vai ser a primeira.
+				this->m_curr_lin = 1;
+			}
+			// Se estiver dados na memoria, a linha atual é a última.
+			else this->modify();
 		}
 		else
 		{
@@ -138,8 +148,8 @@ void elis::open( const std::string & _name)
 			file_stream.open( this->m_name_file, std::fstream::out | std::fstream::in | std::fstream::trunc );
 			// Limpa a memória.
 			this->m_data_file.clear();
-			// Reseta a posição atual( não tem posição atual).
-			this->modify();
+			// Como o arquivo está vazio, a primeira linha é a atual.
+			this->m_curr_lin = 1;
 			this->m_save = true;
 		}
 	}

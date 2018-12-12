@@ -41,11 +41,22 @@ struct Exe_commands
 };
 
 /**
- * @brief      Class for elis.
+ * @brief      classe com as funcionalidades do Editor de LInha Simples.
  */
 class elis
 {
 public:
+
+	/**
+	 * @brief      Os modos do exclusivos do ELIS, modo normal, edição e comando.
+	 */
+	enum Modo
+	{
+		mo_normal,
+		mo_edit,
+		mo_command
+	};
+
 	//== CONSTRUTORES E DESTRUTORES
 	elis();
 	//~elis();
@@ -178,6 +189,43 @@ public:
 	size_type linha_atual() { return this->m_curr_lin; }
 
 	/**
+	 * @brief      Obtém o dado associado ao indice da linha fornecido.
+	 *
+	 * @param[in]  _n    O indice da linha.
+	 *
+	 * @return     O dado associado ao indice.
+	 */
+	std::string get_row( const size_type & _n ) { return this->m_data_file[ _n ]; }
+
+	/**
+	 * @brief      Verifica se atualmente há um arquivo aberto.
+	 *
+	 * @return     True se há um arquivo aberto, false caso contrário.
+	 */
+	bool file_is_open() { return this->m_name_file.empty(); }
+
+	/**
+	 * @brief      Obtém o nome do arquivo atual.
+	 *
+	 * @return     O nome do arquivo.
+	 */
+	const std::string& get_file_name() const { return this->m_name_file; } 
+	
+	/**
+	 * @brief      Obtém o modo atual do elis.
+	 *
+	 * @return     O modo atual.
+	 */
+	const Modo get_current_mode() const { return this->m_current_mode; }
+
+	/**
+	 * @brief      Modifica o modo atual do elis.
+	 *
+	 * @param[in]  _mod  O novo modo atual.
+	 */
+	void set_current_mode( const Modo & _mod ) { this->m_current_mode = _mod; }
+
+	/**
 	 * @brief      Imprime as linhas armazenadas na memoria (apenas para testes).
 	 */
 	void print_linhas()
@@ -194,6 +242,7 @@ private:
 	 * m_data_file	Armazena cada linha do arquivo ascii.
 	 * m_file_stream	Armazena a associação com o objeto stream.
 	 * m_execut_c	Uma pilha para comando executados.
+	 * m_current_mode	Guarda o modo atual, se é normal, edição ou comando.
 	 */
 
 	//== ATRIBUTOS
@@ -204,6 +253,7 @@ private:
 	std::string m_name_file;
 	ac::HashTbl< int, std::string > m_data_file;
 	std::stack< Exe_commands > m_stack_exc;
+	Modo m_current_mode;
 	//std::fstream m_file_stream;
 
 	//== FUNÇÕES AUXILIARES
