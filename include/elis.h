@@ -1,11 +1,15 @@
 #ifndef _ELIS_H_
 #define _ELIS_H_
 
-#include <string>
-#include <fstream>
-#include <iostream>
+#include <string> //< std::string
+#include <fstream> // < std::fstream
+#include <iostream> //< std::cout
+#include <stack> //< std::stack<>
+#include <vector>
 
 #include "hashtbl.h" //< size_type
+
+using HEntry = ac::HashEntry< int, std::string >;
 
 /**
  * @brief      Tipos de comando.
@@ -32,7 +36,7 @@ struct Exe_commands
 	 * ms_size	Quantidade de linhas afetadas.
 	 */
 	command_t ms_command;
-	ac::HashEntry< int, std::string > * ms_affec_rows;
+	std::vector<HEntry> ms_affec_rows;
 	size_type ms_size;
 };
 
@@ -59,6 +63,7 @@ public:
 	 * 			deve exibir uma mensagem indicando o fato e confirmar a operação.
 	 */
 	void quit();
+
 	//== OPERAÇÕES SOBRE O ARQUIVO
 	
 	/**
@@ -86,6 +91,11 @@ public:
 	 * @param[in]	_n	A linha n.
 	 */
 	void modify( const size_type _n = 0);
+
+	/**
+	 * @brief      Desfaz os últimos comandos realizados desde a última gravação do arquivo.
+	 */
+	void undo();
 
 	/**
 	 * @brief	Edita linha n, posicionando o cursos no final da linha. 
@@ -183,6 +193,7 @@ private:
 	 * m_name_file	Armazena o nome do arquivo que está atualmente aberto.
 	 * m_data_file	Armazena cada linha do arquivo ascii.
 	 * m_file_stream	Armazena a associação com o objeto stream.
+	 * m_execut_c	Uma pilha para comando executados.
 	 */
 
 	//== ATRIBUTOS
@@ -192,6 +203,7 @@ private:
 	bool m_save;
 	std::string m_name_file;
 	ac::HashTbl< int, std::string > m_data_file;
+	std::stack< Exe_commands > m_stack_exc;
 	//std::fstream m_file_stream;
 
 	//== FUNÇÕES AUXILIARES

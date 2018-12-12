@@ -26,7 +26,7 @@ void elis::redistribute( const size_type _n )
 	}
 }
 
-//== OPERAÇÕES DA JANELA
+//== OPERAÇÕES SOBRE O ARQUIVO
 
 void elis::write( const std::string & _name )
 {
@@ -101,6 +101,7 @@ void elis::open( const std::string & _name)
 		this->modify();
 	}
 }
+
 void elis::modify( const size_type _n )
 {
 	// Verifica se a linha foi informado ou se o linha informada
@@ -115,45 +116,116 @@ void elis::modify( const size_type _n )
 	}
 }
 
+void elis::undo( void )
+{
+	std::cout << "Entrou undo" << std::endl;
+	// Verifica se a pilha está vazia
+	if( !this->m_stack_exc.empty() )
+	{
+		auto ec = this->m_stack_exc.top();
+		switch(ec.ms_command)
+		{
+			case c_insert:
+				// Deleta a linha inserida.
+				this->deleteL( ec.ms_affec_rows[0].m_key );
+				break;
+
+			case c_append:
+				std::cout << "Foi c_append!" << std::endl;
+				break;
+			case c_edit:
+				std::cout << "Foi c_edit!" << std::endl;
+				break;
+			case c_delete:
+				std::cout << "Foi c_delete!" << std::endl;
+				break;
+			case c_paste:
+				std::cout << "Foi c_paste!" << std::endl;
+				break;
+			default:
+				std::cout << "só o choro" << std::endl;
+		} 
+	}
+}
+
 //== OPERAÇÕES DE CRUD (Create, Read, Update, Delete).
 
 void elis::insert( const size_type _n, const std::string & _txt )
 {
+	Exe_commands ec;
+	// Guarda o comando executado.
+	ec.ms_command = c_insert;
+	ec.ms_size = 1; //< Quantas linhas inseridas.
+	// Guarda o indice e os dados contidos na linha.
+	HEntry entry( _n, _txt );
+	
 	// Verifica se foi informado a linha n ou se a linha n existe.
 	if( ( _n != 0 ) && ( _n <= this->size() ) )
 	{
+		// Reorganiza as linhas.
 		this->redistribute( _n );
+		// Insere a linha,
 		this->m_data_file.insert( _n, _txt );
+		// Guarda qual linha foi inserida.
+		ec.ms_affec_rows.push_back(entry);
 	}
 	// Verifica se tem linha atual
 	else if( this->m_curr_lin != 0 )
 	{
+		// Reorganiza as linhas.
 		this->redistribute( this->m_curr_lin );
+		// Insere a linha,
 		this->m_data_file.insert( this->m_curr_lin, _txt );
+		// Guarda qual linha foi inserida.
+		ec.ms_affec_rows.push_back(entry);
 	}
-	else this->m_data_file.insert( 1, _txt ); //< insere na primeira linha.
+	else 
+	{
+		this->m_data_file.insert( 1, _txt ); //< insere na primeira linha.
+		// Guarda qual linha foi inserida.
+		entry.m_key = 1;
+		ec.ms_affec_rows.push_back(entry);
+	}
+	this->m_stack_exc.push(ec); //< Armazena na pilha o comando e as linhas alteradas.
 }
 
 void elis::append( const size_type _n, const std::string & _txt )
 {
+	
+	Exe_commands ec;
+	// Guarda o comando executado.
+	ec.ms_command = c_append;
+	ec.ms_size = 1; //< Quantas linhas inseridas.
+	// Guarda o indice e os dados contidos na linha.
+	HEntry entry( _n, _txt );
+
 	// Verifica se foi informado a linha ou se a linha informada existe.
 	if( ( _n != 0 ) && ( _n <= this->m_data_file.size() ) )
 	{
 		this->redistribute( _n + 1 );
 		this->m_data_file.insert( _n + 1, _txt );
+		// Guarda qual linha foi inserida.
+		ec.ms_affec_rows.push_back(entry);
 	}
 	// Verifica se tem linha atual
 	else if( this->m_curr_lin != 0 )
 	{
 		this->redistribute( this->m_curr_lin + 1);
 		this->m_data_file.insert( this->m_curr_lin + 1, _txt );
+		// Guarda qual linha foi inserida.
+		ec.ms_affec_rows.push_back(entry);
 	}
-	else this->m_data_file.insert( 1, _txt ); //< insere na primeira linha.
+	else 
+	{
+		this->m_data_file.insert( 1, _txt ); //< insere na primeira linha.
+		entry.m_key = 1;
+		ec.ms_affec_rows.push_back(entry);
+	}
+	this->m_stack_exc.push(ec);
 }
 
 void elis::deleteL( const size_type _n, const size_type _m)
 {
-	// Verifica se a linha n foi informada.
 	if( _n != 0 )
 	{
 		//	Verifica se o m foi informado e se m ultrapassa a quantidade de linhas.
