@@ -37,6 +37,7 @@ WINDOW* key_backspace(  WINDOW * _win );
  */
 WINDOW* scrolling( WINDOW* _w,  elis & _et, const std::string & _tipo );
 
+WINDOW* imprimir_linhas( WINDOW * _w, elis & _et);
 int main()
 {
 	elis editor_texto;
@@ -61,27 +62,430 @@ int main()
 	// Seleciona um comando.
 	while( com = getch() )
 	{
-		// Modo commmand
+		//== Modo commmand
 		if( com == 58 )
 		{
 			win = mod_jan_com(win, "~ COMMAND ~: ");
+			wmove(win, 1, 14);
 			// Torna as letras visiveis
 			echo();
 			// Armazena a linha de comando.
-			char cstr[COLS];
+			char cstr/*[COLS]*/;
 			// Reseta a posição do curso da janela de comandos.
 			wmove(win, 1, 14);
 			// torna visivel o cursor.
 			curs_set(1);
 			wrefresh(win);
 			
-			
-			while( wgetstr(win,cstr) )
-			{
+			cstr = wgetch(win);
+			while( cstr != ESC )
+			{				
+				// Comando Modify	
+				if( cstr == 'm' || cstr == 'M' )
+				{
+					// Linha.
+					int n;
+					wgetch(win); //<pula o espaço.
+					wmove(win, 3, 14);
+					cstr = wgetch(win);
+					std::string str;
+					
+					while( cstr != ' ' && cstr != ENTER )
+					{
+						str.push_back(cstr);
+						cstr = wgetch(win);
+					}
 
-			}	
+					// converte string para inteiro.
+					n = std::stoi(str);
+
+					editor_texto.modify(n);
+					stdscr = imprimir_linhas(stdscr, editor_texto);
+					win = mod_jan_com(win, "~ COMMAND ~: ");
+					refresh();			
+				}
+				// Comando Write
+				else if( cstr == 'w' || cstr == 'W' )
+				{
+					wgetch(win); //<pula o espaço.
+					wmove(win, 3, 14);
+					cstr = wgetch(win);
+					std::string str;
+					
+					while( cstr != ' ' && cstr != ENTER )
+					{
+						str.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					editor_texto.write(str);	
+				}
+				// Comando Open
+				else if( cstr == 'O' || cstr == 'o' )
+				{
+					wgetch(win); //<pula o espaço.
+					wmove(win, 3, 14);
+					cstr = wgetch(win);
+					std::string str;
+					
+					while( cstr != ' ' && cstr != ENTER )
+					{
+						str.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					editor_texto.open(str);
+					stdscr = imprimir_linhas(stdscr, editor_texto);	
+				}
+				// Comando Insert
+				else if( cstr == 'i' || cstr == 'I' )
+				{
+					
+					int n;
+					wgetch(win); //<pula o espaço.
+					wmove(win, 3, 14);
+					cstr = wgetch(win);
+					std::string str1;
+					
+					while( cstr != ' ' && cstr != ENTER )
+					{
+						str1.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					// converte string para inteiro.
+					n = std::stoi(str1);
+					editor_texto.modify(n);
+
+					int x,y;
+					wclear(stdscr);
+					win = mod_jan_com(win, "~ INSERT ~ ");
+					wrefresh(stdscr);
+					//wrefresh(win);
+					//wrefresh(stdscr);
+					echo();
+					// Mover o curso para o final da linha atual.
+					move( 0,0);
+
+					curs_set(1);
+
+					// Armazena a linha digitada
+					char cstr[COLS];
+					char v = getch();
+					std::string str;
+					// Verifica se <esc> foi digitado
+					while( v != ESC )
+					{
+						// Verifica se <enter> foi digitado
+						// ou se x chegou no limite das colunas.
+						if ( v == ENTER)
+						{					
+							// Obtém linha e coluna atual;
+							//getyx(stdscr,y,x);
+							// Insere o valor na pilha
+							editor_texto.insert( editor_texto.linha_atual(), str );
+							// Torna a linha recem inserida na atual;
+							editor_texto.modify(editor_texto.linha_atual());
+							
+							// Limpa a tela para imprimir os
+							// arquivos da memoria.
+							stdscr = imprimir_linhas(stdscr, editor_texto);
+							
+							str.clear();
+							break;
+						}
+						// Verifica se <backspace> foi digitado.
+						else if( v == BACKSPACE )
+						{
+							if( !str.empty() )
+							{
+								str.pop_back();	
+													
+							}
+							
+							stdscr = key_backspace(stdscr);
+							// Por algum motivo divino, so apaga quando uso isso.
+							win = mod_jan_com(win, "~ INSERT ~ ");
+							refresh();
+							getyx(stdscr,y,x);
+							move(y,x);	
+						}
+						else
+						{
+							str.push_back(v);
+							getyx(stdscr,y,x);
+							move(y,x);
+						}
+						v = getch();
+						if( v == ESC )
+						{
+							//getyx(stdscr,y,x);
+							editor_texto.insert( editor_texto.linha_atual(), str );
+							
+
+							// Limpa a tela para imprimir os
+							// arquivos da memoria.
+							stdscr = imprimir_linhas(stdscr, editor_texto);
+						
+							refresh();
+							v = 'a';
+							str.clear();
+							break;
+						}			
+					}
+
+					// Caso dê ESC no inicio.
+					if( v == ESC )
+					{
+							//getyx(stdscr,y,x);
+							editor_texto.insert( editor_texto.linha_atual(), str );
+
+							// Limpa a tela para imprimir os
+							// arquivos da memoria.
+							stdscr = imprimir_linhas(stdscr, editor_texto);
+							win = mod_jan_com(win, "~ NORMAL ~");
+
+							refresh();
+							str.clear();
+					}	
+
+					noecho();
+					curs_set(0);
+					move(editor_texto.linha_atual(),0);				
+				}
+				// Comando Append
+				else if( cstr == 'a' || cstr == 'A' )
+				{
+					
+					int n;
+					wgetch(win); //<pula o espaço.
+					wmove(win, 3, 14);
+					cstr = wgetch(win);
+					std::string str1;
+					
+					while( cstr != ' ' && cstr != ENTER )
+					{
+						str1.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					// converte string para inteiro.
+					n = std::stoi(str1);
+					editor_texto.modify(n);
+
+					int x,y;
+					wclear(stdscr);
+					win = mod_jan_com(win, "~ INSERT ~ ");
+					wrefresh(stdscr);
+					//wrefresh(win);
+					//wrefresh(stdscr);
+					echo();
+					// Mover o curso para o final da linha atual.
+					move( 0,0);
+
+					curs_set(1);
+
+					// Armazena a linha digitada
+					char cstr[COLS];
+					char v = getch();
+					std::string str;
+					// Verifica se <esc> foi digitado
+					while( v != ESC )
+					{
+						// Verifica se <enter> foi digitado
+						// ou se x chegou no limite das colunas.
+						if ( v == ENTER)
+						{					
+							// Obtém linha e coluna atual;
+							//getyx(stdscr,y,x);
+							// Insere o valor na pilha
+							editor_texto.append( editor_texto.linha_atual(), str );
+							// Torna a linha recem inserida na atual;
+							editor_texto.modify(editor_texto.linha_atual());
+							
+							// Limpa a tela para imprimir os
+							// arquivos da memoria.
+							stdscr = imprimir_linhas(stdscr, editor_texto);
+							
+							str.clear();
+							break;
+						}
+						// Verifica se <backspace> foi digitado.
+						else if( v == BACKSPACE )
+						{
+							if( !str.empty() )
+							{
+								str.pop_back();	
+													
+							}
+							
+							stdscr = key_backspace(stdscr);
+							// Por algum motivo divino, so apaga quando uso isso.
+							win = mod_jan_com(win, "~ INSERT ~ ");
+							refresh();
+							getyx(stdscr,y,x);
+							move(y,x);	
+						}
+						else
+						{
+							str.push_back(v);
+							getyx(stdscr,y,x);
+							move(y,x);
+						}
+						v = getch();
+						if( v == ESC )
+						{
+							//getyx(stdscr,y,x);
+							editor_texto.append( editor_texto.linha_atual(), str );
+							
+
+							// Limpa a tela para imprimir os
+							// arquivos da memoria.
+							stdscr = imprimir_linhas(stdscr, editor_texto);
+						
+							refresh();
+							v = 'a';
+							str.clear();
+							break;
+						}			
+					}
+
+					// Caso dê ESC no inicio.
+					if( v == ESC )
+					{
+							//getyx(stdscr,y,x);
+							editor_texto.insert( editor_texto.linha_atual(), str );
+
+							// Limpa a tela para imprimir os
+							// arquivos da memoria.
+							stdscr = imprimir_linhas(stdscr, editor_texto);
+							win = mod_jan_com(win, "~ NORMAL ~");
+
+							refresh();
+							str.clear();
+					}	
+
+					noecho();
+					curs_set(0);
+					move(editor_texto.linha_atual(),0);				
+				}
+				// Comando Delete
+				else if( cstr == 'd' || cstr == 'D' )
+				{
+					int n, m;
+					wgetch(win); //<pula o espaço.
+					wmove(win, 3, 14);
+					cstr = wgetch(win);
+					std::string str1;
+					
+					while( cstr != ' ' )
+					{
+						if( cstr == ENTER ) 
+						{
+							editor_texto.deleteL( editor_texto.linha_atual() );
+							break;
+						}
+						str1.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					n = std::stoi(str1);
+					str1.clear();
+
+					cstr = wgetch(win);
+					while( cstr != ' ' )
+					{
+						if( cstr == ENTER ) 
+						{
+							editor_texto.deleteL( n );
+							break;
+						}
+						str1.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					m = std::stoi(str1);
+					editor_texto.deleteL(n,m);
+					stdscr = imprimir_linhas(stdscr, editor_texto);					
+				}
+				// Comando copia
+				else if( cstr == 'c' || cstr == 'C' )
+				{
+					int n, m;
+					wgetch(win); //<pula o espaço.
+					wmove(win, 3, 14);
+					cstr = wgetch(win);
+					std::string str1;
+					
+					while( cstr != ' ' )
+					{
+						if( cstr == ENTER ) 
+						{
+							editor_texto.copy( editor_texto.linha_atual() );
+							break;
+						}
+						str1.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					n = std::stoi(str1);
+					str1.clear();
+
+					cstr = wgetch(win);
+					while( cstr != ' ' )
+					{
+						if( cstr == ENTER ) 
+						{
+							editor_texto.copy( n );
+							break;
+						}
+						str1.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					m = std::stoi(str1);
+					editor_texto.copy(n,m);
+					stdscr = imprimir_linhas(stdscr, editor_texto);					
+				}
+
+				// Comando paste	
+				if( cstr == 'p' || cstr == 'P' )
+				{
+					// Linha.
+					int n;
+					wgetch(win); //<pula o espaço.
+					wmove(win, 3, 14);
+					cstr = wgetch(win);
+					std::string str;
+					
+					while( cstr != ' ' && cstr != ENTER )
+					{
+						str.push_back(cstr);
+						cstr = wgetch(win);
+					}
+
+					// converte string para inteiro.
+					n = std::stoi(str);
+
+					editor_texto.paste(n);
+					stdscr = imprimir_linhas(stdscr, editor_texto);
+					win = mod_jan_com(win, "~ COMMAND ~: ");
+					refresh();			
+				}
+				win = mod_jan_com(win, "~ COMMAND ~: ");
+				wmove(win, 1, 14);
+				cstr = wgetch(win);
+				echo();
+				curs_set(1);
+			}
+
+			noecho();
+			curs_set(0);
+			move(editor_texto.linha_atual(),0);
+			win = mod_jan_com(win, "~ NORMAL ~");
+			
 		}
-		// Modo insert
+		//== Modo EDIÇÂO
 		else if( com == 'i' || com == 'I' )
 		{
 			win = mod_jan_com(win, "~ INSERT ~ ");
@@ -112,11 +516,18 @@ int main()
 					editor_texto.insert( editor_texto.linha_atual() + 1, str );
 					// Torna a linha recem inserida na atual;
 					editor_texto.modify(editor_texto.linha_atual() + 1);
-					printw("%d   %s", editor_texto.linha_atual(), str.c_str() );
+					
+					// Limpa a tela para imprimir os
+					// arquivos da memoria.
+					stdscr = imprimir_linhas(stdscr, editor_texto);
+					win = mod_jan_com(win, "~ INSERT ~");
+					
 					str.clear();
 					move(editor_texto.linha_atual() % (LINES - 3) , 0 );
 					stdscr = scrolling( stdscr, editor_texto, "descer" );
-					win = mod_jan_com(win, "~ INSERT ~ ");
+					//stdscr = imprimir_linhas(stdscr, editor_texto);
+					win = mod_jan_com(win, "~ INSERT ~");
+					//win = mod_jan_com(win, "~ INSERT ~ ");
 				}
 				// Verifica se <backspace> foi digitado.
 				else if( v == BACKSPACE )
@@ -124,12 +535,15 @@ int main()
 					if( !str.empty() )
 					{
 						str.pop_back();	
-						stdscr = key_backspace(stdscr);
-						getyx(stdscr,y,x);
-						move(y,x);					
+											
 					}
 					
-								
+					stdscr = key_backspace(stdscr);
+					// Por algum motivo divino, so apaga quando uso isso.
+					win = mod_jan_com(win, "~ INSERT ~ ");
+					refresh();
+					getyx(stdscr,y,x);
+					move(y,x);	
 				}
 				else
 				{
@@ -145,26 +559,10 @@ int main()
 					editor_texto.modify( editor_texto.linha_atual() + 1);
 
 					// Limpa a tela para imprimir os
-					// arquivos da memoria;
-					wclear(stdscr);
+					// arquivos da memoria.
+					stdscr = imprimir_linhas(stdscr, editor_texto);
 					win = mod_jan_com(win, "~ NORMAL ~");
 					
-					// Verifica se o tamanho do arquivo na memoria é
-					// maior que a capacidade de linhas.
-					int qlin = editor_texto.size();;
-					if( qlin >= LINES - 3) qlin = LINES - 4;
-					// Percorre todas as linhas inseridas na memoria.
-					for (int i = 0; i < qlin; ++i)
-					{
-						if( i + 1 == editor_texto.linha_atual() )
-						{
-							mvwprintw(stdscr, i, 0, "%d> %s", i + 1, editor_texto.get_row(i + 1).c_str() );
-						}
-						else
-						{
-							mvwprintw(stdscr, i, 0, "%d  %s", i + 1, editor_texto.get_row(i + 1).c_str() );								
-						}
-					}
 					refresh();
 					v = 'a';
 					str.clear();
@@ -180,27 +578,10 @@ int main()
 					editor_texto.modify( editor_texto.linha_atual() + 1);
 
 					// Limpa a tela para imprimir os
-					// arquivos da memoria;
-					wclear(stdscr);
+					// arquivos da memoria.
+					stdscr = imprimir_linhas(stdscr, editor_texto);
 					win = mod_jan_com(win, "~ NORMAL ~");
-					
-					// Verifica se o tamanho do arquivo na memoria é
-					// maior que a capacidade de linhas.
-					int qlin = editor_texto.size();;
-					if( qlin >= LINES - 3) qlin = LINES - 4;
 
-					// Percorre todas as linhas inseridas na memoria.
-					for (int i = 0; i < qlin; ++i)
-					{
-						if( i + 1 == editor_texto.linha_atual() )
-						{
-							mvwprintw(stdscr, i, 0, "%d> %s", i + 1, editor_texto.get_row(i + 1).c_str() );
-						}
-						else
-						{
-							mvwprintw(stdscr, i, 0, "%d  %s", i + 1, editor_texto.get_row(i + 1).c_str() );								
-						}
-					}
 					refresh();
 					str.clear();
 			}	
@@ -209,7 +590,27 @@ int main()
 			curs_set(0);
 			move(editor_texto.linha_atual(),0);
 			win = mod_jan_com(win, "~ NORMAL ~");
-			editor_texto.write("doc/corno.txt");
+			
+		}
+		//== Navega pra cima.
+		else if( com == 'k' || com == 'K' )
+		{
+			if( editor_texto.linha_atual() > 1 )
+			{
+				editor_texto.modify( editor_texto.linha_atual() - 1 );
+				stdscr = imprimir_linhas( stdscr, editor_texto );
+				win = mod_jan_com(win, "~ NORMAL ~");
+			}
+		}
+		//== Navega pra baix
+		else if( com == 'j' || com == 'J' )
+		{
+			if( editor_texto.linha_atual() <= editor_texto.size() )
+			{
+				editor_texto.modify( editor_texto.linha_atual() + 1 );
+				stdscr = imprimir_linhas( stdscr, editor_texto );
+				win = mod_jan_com(win, "~ NORMAL ~");
+			}
 		}
 	}
 
@@ -260,7 +661,10 @@ WINDOW* scrolling( WINDOW* _w,  elis & _et, const std::string & _tipo )
 			// e se não é uma lista vazia.
 			if( r == 0 && q >= 1 )
 			{
-				wclear(_w);
+				_et.modify( _et.linha_atual() + 1);
+
+				_w = imprimir_linhas(_w, _et);
+				/*
 				// Diferença entre a quantidade de linhas na memoria e a linha atual.
 				int limite = _et.size() - _et.linha_atual() + 1;
 				// Verifica se a diferença é maior que quantidade de linhas que a tela pode imprimir.
@@ -276,11 +680,50 @@ WINDOW* scrolling( WINDOW* _w,  elis & _et, const std::string & _tipo )
 					else mvwprintw(_w, _et.linha_atual() + 1 - i, 0, "%d  %s", i, _et.get_row(i) );
 				} 
 				wrefresh(_w);
-				_et.modify( _et.linha_atual() + 1);
+				*/
+				
 			}
 		}
 
 	}
 
+	return _w;
+}
+
+WINDOW* imprimir_linhas( WINDOW * _w, elis & _et )
+{
+
+	// Em qual tela o linha atual está
+	int la= _et.linha_atual() / (LINES - 3);
+	// Em qual tela a ultima linha está
+	int ul = _et.size() / (LINES - 3);
+
+	// Verifica se estão em telas diferentes.
+	// linha atual nunca é maior que ultima linha
+	if(ul > la)
+	{
+		// ul será usado no for como if( strlimite.
+		// ul é posicionado na ultima linha da tela.
+		ul = (LINES - 3) * (la + 1);
+	}
+	else ul = _et.size();
+
+	wclear(_w);
+
+	int j = 0;
+	// Percorre todas as linhas dessa tela.
+	for (int i = la + 1; i <= ul; ++i)
+	{
+		if( i == _et.linha_atual() )
+		{
+			mvwprintw(_w, j, 0, "%d> %s", i, _et.get_row(i).c_str() );
+		}
+		else
+		{
+			mvwprintw(_w, j, 0, "%d  %s", i, _et.get_row(i).c_str() );								
+		}
+		++j;
+	}
+	wrefresh( _w );
 	return _w;
 }
