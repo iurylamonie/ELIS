@@ -6,6 +6,7 @@
 #include <iostream> //< std::cout
 #include <stack> //< std::stack<>
 #include <vector>
+#include <ncurses.h>
 
 #include "hashtbl.h" //< size_type
 

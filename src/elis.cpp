@@ -47,6 +47,7 @@ void elis::quit()
 		this->m_save = false;
 		this->m_name_file.clear();
 		this->m_data_file.clear();
+		endwin();
 	}
 	else
 	{
