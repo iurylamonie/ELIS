@@ -1,8 +1,3 @@
-# AUTORES
-
-1. Iury Lamonie Fernandes do Nascimento
-2. Leonardo Igor de Oliveira Cavalcante
-
 # 1. SOBRE O PROJETO
 
 Esse projeto tem a implementa de um editor de texto, o ELIS(Editor de LInha Simples), baseado nos antigos editores em prompt de comando e foi desenvolvido com o auxilia da biblioteca [ncurses](ftp://ftp.gnu.org/gnu/ncurses), que facilita a captura e a exibição em um terminal.
